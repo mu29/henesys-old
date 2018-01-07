@@ -1,12 +1,49 @@
+import React, { Component } from 'react';
 import Link from 'next/link';
 
-export default ({ pathname }) => (
-  <header>
-    <Link href="/">
-      <a className={pathname === "/" && "is-active"}>Home</a>
-    </Link>{" "}
-    <Link href="/about">
-      <a className={pathname === "/about" && "is-active"}>About</a>
-    </Link>
-  </header>
-);
+export default class Header extends Component {
+  render() {
+    const { boards = [] } = this.props;
+    return (
+      <div className="header">
+        <div className="row">
+          <div className="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+            <div className="header-content">
+              <a className="header-logo" href="/">
+                <img src="/static/logo.png" />
+              </a>
+              <ul className="header-navigation">
+                {
+                  boards.map(b => (
+                    <li key={ b.id }>
+                      <a href={ '/' }>{ b.name }</a>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+          </div>
+        </div>
+        <style jsx>{`
+          .header {
+            width: 100%;
+            height: 5rem;
+            border-bottom: 0.25rem solid #F9D14C;
+            background-color: #2D2D2D;
+            box-sizing: content-box;
+          }
+          .header-content {
+            height: 5rem;
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+          }
+          .header-logo > img {
+            width: 3rem;
+            height: 3rem;
+          }
+        `}</style>
+      </div>
+    );
+  }
+}
