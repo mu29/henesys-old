@@ -1,15 +1,5 @@
 import React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
-import * as firebase from 'firebase';
-import firebaseConfig from '../firebase/config.json';
-
-try {
-  firebase.initializeApp(firebaseConfig);
-} catch (err) {
-  if (!/already exists/.test(err.message)) {
-    console.error('Firebase 초기화 오류', err.stack)
-  }
-}
 
 export default class extends Document {
   static async getInitialProps ({ renderPage }) {

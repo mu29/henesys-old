@@ -1,9 +1,8 @@
+import * as firebase from 'firebase';
+import 'firebase/firestore';
 import config from './config.json';
 
-
 export default async function loadDB() {
-  const firebase = await import('firebase');
-
   try {
     firebase.initializeApp(config);
   } catch (err) {
@@ -12,5 +11,5 @@ export default async function loadDB() {
     }
   }
 
-  return firebase;
+  return firebase.firestore();
 }

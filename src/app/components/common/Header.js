@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
-import Link from 'next/link';
+import { connect } from 'react-redux';
+import { fetchMenuActions } from '../../modules/Menu';
 
-export default class Header extends Component {
+class Header extends Component {
+  componentDidMount() {
+    this.props.fetchMenus();
+  }
+
   render() {
     const { boards = [] } = this.props;
     return (
@@ -47,3 +52,13 @@ export default class Header extends Component {
     );
   }
 }
+
+const mapStateToProps = ({ Menu }) => ({
+  menus: Menu.menus,
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchMenus: () => dispatch(fetchMenuActions.request()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

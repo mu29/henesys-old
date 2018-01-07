@@ -12,7 +12,7 @@ export const fetchMenuActions = makeFetchActionCreators(fetchMenuActionTypes);
 export default function (state = initialState, action) {
   switch (action.type) {
     case fetchMenuActionTypes.SUCCESS: {
-      return { ...state,  posts: [...state.posts, action.post] };
+      return { ...state,  menus: action.menus };
     }
     default:
       return state;

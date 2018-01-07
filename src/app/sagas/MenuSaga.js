@@ -5,9 +5,11 @@ import {
   fetchMenuActionTypes,
   fetchMenuActions,
 } from '../modules/Menu';
+import { readMenus } from '../firebase/MenuApi'
 
 function* loadMenus() {
-  yield put(fetchMenuActions.success());
+  const { menus, error } = yield call(readMenus);
+  yield put(menus ? fetchMenuActions.success({ menus }) : fetchMenuActions.failure({ error }));
 }
 
 export function* watchFetchMenus() {
