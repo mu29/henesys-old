@@ -21,7 +21,7 @@ class Header extends Component {
               <ul className="menu">
                 {
                   menus.map(m => (
-                    <li key={ m.id }>
+                    <li key={ m.index }>
                       <a className="menu-item" href={ '/' }>{ m.name }</a>
                     </li>
                   ))
@@ -62,7 +62,8 @@ class Header extends Component {
             font-size: 1.125rem;
             text-decoration: none;
           }
-          .header .menu-item::hover {
+          .header .menu-item:hover {
+            color: #F9D14C;
             text-decoration: none;
           }
         `}</style>
