@@ -3,7 +3,7 @@ import { withReduxSaga } from '../store';
 import App from '../components/common/App';
 
 class Home extends Component {
-  static async getInitialProps () {
+  static async getInitialProps() {
     return {};
   }
 
