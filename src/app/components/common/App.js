@@ -5,7 +5,7 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <Header menus={ this.props.menus } />
+        <Header />
       </div>
     );
   }
