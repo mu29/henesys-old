@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import css from 'styled-jsx/css'
 import Menus from 'constants/Menu';
 
 export default () => (

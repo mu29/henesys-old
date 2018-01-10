@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withReduxSaga } from 'store';
 import { readMenus } from 'firebase/MenuApi';
 import { fetchMenuActions } from 'modules/Menu';
-import App from 'components/common/App';
+import App from 'components/Common/App';
 
 class Home extends Component {
   render () {
