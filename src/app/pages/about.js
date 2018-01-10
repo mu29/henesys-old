@@ -1,4 +1,4 @@
-import App from '../components/common/App';
+import App from 'components/Common/App';
 
 export default () => (
   <App>

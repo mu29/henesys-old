@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Menus from 'constants/Menu';
 
 export default () => (
   <div className="header">
     <div className="row">
-      <div className="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+      <div className="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12">
         <div className="content">
           <a href="/">
             <img src="/static/logo.png" />
