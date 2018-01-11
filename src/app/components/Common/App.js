@@ -10,6 +10,7 @@ export default class App extends Component {
         <style jsx>{`
           html {
             font-size: 16px;
+            font-family: 'Nanum Gothic';
           }
           html, body, body > div:first-child, #__next, #__next > div:first-child  {
             height: 100%;
@@ -18,6 +19,9 @@ export default class App extends Component {
           .app {
             height: 100%;
             background-color: #F1F1F1
+          }
+          a:hover, a:active, a:focus {
+            outline: none;
           }
         `}</style>
       </div>

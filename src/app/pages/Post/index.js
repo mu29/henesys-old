@@ -4,13 +4,17 @@ import App from 'components/Common/App';
 import { PostList, TagList } from 'components/Post';
 
 class PostIndex extends Component {
+  static getInitialProps({ req }) {
+    return { tag: req.query.tag }
+  }
+
   render() {
     return (
       <App>
         <div className="row">
           <div className="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 post-index">
-            <PostList />
-            <TagList />
+            <PostList tag={ this.props.tag } />
+            <TagList tag={ this.props.tag } />
           </div>
         </div>
         <style jsx>{`

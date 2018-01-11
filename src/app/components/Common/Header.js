@@ -9,7 +9,7 @@ export default () => (
           <a href="/">
             <img src="/static/logo.png" />
           </a>
-          <ul className="menu">
+          <ul>
             {
               Menus.map(m => (
                 <li key={ m.id }>
@@ -39,7 +39,7 @@ export default () => (
         width: 3rem;
         height: 3rem;
       }
-      .header .menu {
+      .header ul {
         display: flex;
         list-style: none;
         margin-top: 0;
