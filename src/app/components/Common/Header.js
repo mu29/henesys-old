@@ -13,7 +13,7 @@ export default () => (
             {
               Menus.map(m => (
                 <li key={ m.id }>
-                  <a className="menu-item" href={ `/${m.id}` }>{ m.name }</a>
+                  <a className="menu-item" href={ `/posts?tag=${m.id}` }>{ m.name }</a>
                 </li>
               ))
             }

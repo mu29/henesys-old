@@ -2,16 +2,29 @@ import React from 'react';
 import Menus from 'constants/Menu';
 
 export default (props) => {
-  const menu = Menus.filter(m => m.id === props.tag);
-  const tags = (menu && menu[0] && menu[0].tags) || [];
+  const findRootMenu = (menus, tag, root) => {
+    if (!menus)
+      return null;
+    const menu = menus.find(m => m.id === tag);
+    return menu ?
+      (root || menu) :
+      menus.map(m => findRootMenu(m.tags, tag, root || m)).find(Boolean);
+  }
+  const menu = findRootMenu(Menus, props.tag);
+  const tags = menu.tags || [];
 
   return (
     <div className="col-lg-2 col-md-2 col-sm-12 col-xs-12 tag-list">
       <ul>
         {
           tags.map(tag => (
-            <li>
-              <a href={ `/posts?tag=${tag.id}` }>{ tag.name }</a>
+            <li key={ tag.id }>
+              <a
+                className={ tag.id === props.tag ? 'selected' : ''  }
+                href={ `/posts?tag=${tag.id}` }
+              >
+                { tag.name }
+              </a>
             </li>
           ))
         }
@@ -43,6 +56,9 @@ export default (props) => {
           font-weight: 300;
           font-size: 1rem;
           text-decoration: none;
+        }
+        .tag-list li .selected {
+          font-weight: 400;
         }
         .tag-list li > a:hover,
         .tag-list li > a:active,

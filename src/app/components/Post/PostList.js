@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PostItem from './PostItem';
-import { readPostList } from 'firebase/PostApi';
 
 class PostList extends Component {
-  componentDidMount() {
-    readPostList('notice', null)
-      .then(result => console.log(result));
-  }
   render() {
     return (
       <div className="post-list">
