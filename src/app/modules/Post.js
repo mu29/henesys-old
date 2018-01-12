@@ -1,5 +1,4 @@
-// @flow
-
+import { uniqBy } from 'lodash';
 import { makeFetchActionTypes, makeFetchActionCreators } from './actionCreator';
 
 const initialState = {
@@ -12,7 +11,7 @@ export const fetchPostListActions = makeFetchActionCreators(fetchPostListActionT
 export default function (state = initialState, action) {
   switch (action.type) {
     case fetchPostListActionTypes.SUCCESS: {
-      return { ...state,  posts: [...state.posts, ...action.posts] };
+      return { ...state,  posts: uniqBy([...state.posts, ...action.posts], 'id') };
     }
     default:
       return state;

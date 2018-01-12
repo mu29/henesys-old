@@ -1,5 +1,6 @@
 import React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
+import 'moment/locale/ko';
 
 export default class extends Document {
   static async getInitialProps ({ renderPage }) {

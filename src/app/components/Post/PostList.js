@@ -10,8 +10,10 @@ class PostList extends Component {
   }
 
   render() {
+    const { posts } = this.props;
     return (
       <div className="post-list">
+        { posts.map(post => <PostItem post={ post } />) }
         <style jsx>{`
           .post-list {
             flex: 3;
