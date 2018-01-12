@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { fetchPostListActions } from 'modules/Post';
 import PostItem from './PostItem';
 
 class PostList extends Component {
+  componentDidMount() {
+    const { tag, last, fetchPostList } = this.props;
+    fetchPostList(tag, last);
+  }
+
   render() {
     return (
       <div className="post-list">
@@ -20,8 +26,12 @@ class PostList extends Component {
   }
 }
 
-const mapStateToProps = ({ Menu }) => ({
-  menus: Menu.menus,
+const mapStateToProps = ({ Post }) => ({
+  posts: Post.posts,
 });
 
-export default connect(mapStateToProps)(PostList);
+const mapDispatchToProps = dispatch => ({
+  fetchPostList: (tag, last) => dispatch(fetchPostListActions.request({ tag, last })),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostList);

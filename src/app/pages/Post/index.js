@@ -5,7 +5,7 @@ import { PostList, TagList } from 'components/Post';
 
 class PostIndex extends Component {
   static getInitialProps({ req }) {
-    return { tag: req.query.tag }
+    return { tag: req.query.tag, last: req.query.last }
   }
 
   render() {
@@ -13,7 +13,7 @@ class PostIndex extends Component {
       <App>
         <div className="row">
           <div className="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 post-index">
-            <PostList tag={ this.props.tag } />
+            <PostList tag={ this.props.tag } last={ this.props.last } />
             <TagList tag={ this.props.tag } />
           </div>
         </div>
