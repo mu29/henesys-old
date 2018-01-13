@@ -5,14 +5,19 @@ import Button from './Button';
 export default class IconButton extends Component {
   static propTypes = {
     icon: PropTypes.string.isRequired,
+    size: PropTypes.number,
+  };
+
+  static defaultProps = {
+    size: 14,
   };
 
   render() {
-    const { icon, ...props } = this.props;
+    const { icon, size, ...props } = this.props;
 
     return (
       <Button { ...props }>
-        <i className={ `fa fa-${icon}` } />
+        <i style={{ fontSize: size }} className={ `fa fa-${icon}` } />
       </Button>
     );
   }
