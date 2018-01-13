@@ -32,7 +32,6 @@ class PostIndex extends Component {
           .post-index {
             display: flex;
             justify-content: space-between;
-            margin-top: 1.5rem;
           }
           .post-index > .side {
             display: flex;

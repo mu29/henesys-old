@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import 'moment/locale/ko';
 
-export default (props) => (
+export default props => (
   <a href={ `/posts/${props.post.id}` } className="post-item">
     <div className="content">
       <h4>{ props.post.title }</h4>

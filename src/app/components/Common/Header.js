@@ -57,6 +57,7 @@ class Header extends Component {
           .header {
             width: 100%;
             height: 5rem;
+            margin-bottom: 1.5rem;
             border-bottom: 0.25rem solid #F9D14C;
             background-color: #2D2D2D;
             box-sizing: content-box;
