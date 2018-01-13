@@ -17,7 +17,9 @@ export default class App extends Component {
       <div className="app">
         <Modal />
         <Header />
-        { this.props.children }
+        <div className="container">
+          { this.props.children }
+        </div>
         <style jsx>{`
           html {
             font-size: 16px;
@@ -28,8 +30,24 @@ export default class App extends Component {
             margin: 0;
           }
           .app {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             height: 100%;
             background-color: #F1F1F1
+          }
+          .container {
+            width: 100%;
+          }
+          @media (min-width: 768px) {
+            .container {
+                max-width: 750px;
+            }
+          }
+          @media (min-width: 992px) {
+            .container {
+                max-width: 970px;
+            }
           }
           .glyphicon.fa {
             font-family: "FontAwesome" !important;

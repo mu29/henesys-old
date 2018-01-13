@@ -31,7 +31,7 @@ export default (props) => {
       </ul>
       <style jsx>{`
         .tag-list {
-          flex: 1;
+          width: 14rem;
           padding: 0;
         }
         .tag-list ul {
