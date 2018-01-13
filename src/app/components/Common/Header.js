@@ -8,12 +8,18 @@ import { IconButton } from 'components/Bootstrap';
 
 class Header extends Component {
   static propTypes = {
+    user: PropTypes.shape({
+      email: PropTypes.string,
+      name: PropTypes.string,
+    }).isRequired,
     showModal: PropTypes.func.isRequired,
   };
 
   onClickProfile = () => {
-    const { showModal } = this.props;
-    showModal(<LoginModal />);
+    const { user, showModal } = this.props;
+    if (!user) {
+      showModal(<LoginModal />);
+    }
   }
 
   render() {
@@ -90,8 +96,12 @@ class Header extends Component {
           }
         `}</style>
       </div>
-    )
+    );
   }
-};
+}
 
-export default connect(null, { showModal })(Header);
+const mapStateToProps = ({ Auth }) => ({
+  user: Auth.user,
+});
+
+export default connect(mapStateToProps, { showModal })(Header);
