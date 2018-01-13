@@ -6,7 +6,7 @@ export async function readPostList(tag, last) {
 
   let query = db.collection('posts')
     .where('tag', '==', tagRef)
-    .orderBy('created_at', 'desc')
+    .orderBy('created_at', 'desc');
 
   if (last) {
     const lastPostRef = await db.collection('posts').doc(last).get();

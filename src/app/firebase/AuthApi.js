@@ -13,7 +13,7 @@ export async function register(email, password, name) {
         },
       };
     })
-    .catch(error => ({ error }));
+    .catch(error => error);
 }
 
 export async function login(email, password) {
@@ -29,5 +29,5 @@ export async function login(email, password) {
         },
       };
     })
-    .catch(error => ({ error }));
+    .catch(error => error);
 }

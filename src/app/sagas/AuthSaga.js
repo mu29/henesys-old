@@ -11,7 +11,26 @@ import { register, login } from 'firebase/AuthApi';
 
 function* executeRegister({ email, password, name }) {
   const { user, error } = yield call(register, email, password, name);
-  yield put(user ? registerActions.success({ user }) : registerActions.failure({ error }));
+  if (user) {
+    yield put(registerActions.success({ user }));
+    return;
+  }
+
+  let message = '';
+  switch (error.code) {
+    case 'auth/weak-password':
+      message = '비밀번호는 최소 6자리 이상이어야 합니다.';
+      break;
+    case 'auth/email-already-in-use':
+      message = '이미 사용중인 이메일 주소입니다.';
+      break;
+    case 'auth/invalid-email':
+      message = '이미 사용중인 이메일 주소입니다.';
+      break;
+    default:
+      message = error.code;
+  }
+  yield put(registerActions.failure({ error: message }));
 }
 
 function* executeLogin({ email, password }) {
