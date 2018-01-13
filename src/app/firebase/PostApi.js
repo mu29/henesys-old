@@ -1,4 +1,4 @@
-import loadDB from './DataBase';
+import { loadDB } from './Firebase';
 
 export async function readPostList(tag, last) {
   const db = await loadDB();
@@ -15,7 +15,19 @@ export async function readPostList(tag, last) {
 
   return query.limit(20).get()
     .then(snapshot => ({
-      posts: snapshot.docs.map(d => ({ id: d.id, ...d.data(), tag }))
+      posts: snapshot.docs.map(d => ({ id: d.id, ...d.data(), tag })),
     }))
     .catch(error => ({ error }));
+}
+
+export async function readPost(id) {
+  const db = await loadDB();
+  return db.collection('posts').doc(id).get()
+    .then(snapshot => ({
+      post: {
+        id: snapshot.id,
+        ...snapshot.doc(),
+      },
+    }))
+    .catech(error => ({ error }));
 }

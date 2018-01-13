@@ -1,4 +1,4 @@
-import { loadAuth } from './DataBase';
+import { loadAuth } from './Firebase';
 
 export async function register(email, password, name) {
   const auth = await loadAuth();
