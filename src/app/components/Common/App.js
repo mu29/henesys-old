@@ -31,8 +31,13 @@ export default class App extends Component {
             height: 100%;
             background-color: #F1F1F1
           }
+          .glyphicon.fa {
+            font-family: "FontAwesome" !important;
+          }
           a:hover, a:active, a:focus {
             outline: none;
+            text-decoration: none;
+            cursor: pointer;
           }
         `}</style>
       </div>
