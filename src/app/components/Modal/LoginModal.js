@@ -2,27 +2,54 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { showModal } from 'modules/Alert';
+import { loginActions } from 'modules/Auth';
 import { FormGroup, Input, IconButton } from 'components/Bootstrap';
 import RegisterModal from './RegisterModal';
 
 class LoginModal extends Component {
   static propTypes = {
+    login: PropTypes.func.isRequired,
     showModal: PropTypes.func.isRequired,
+    message: PropTypes.string.isRequired,
   };
 
   onClickRegister = () => this.props.showModal(<RegisterModal />);
 
+  onClickLogin = () => {
+    const { login } = this.props;
+    const { email, password } = this.state;
+    login(email, password);
+  }
+
+  onChangeValue = (key, value) => {
+    this.setState({ ...this.state, [key]: value });
+  }
+
   render() {
+    const { message } = this.props;
     return (
       <div className="login-modal">
         <h3>로그인</h3>
         <div className="content">
           <FormGroup block>
-            <Input placeholder="이메일" />
+            <Input
+              placeholder="이메일"
+              onChange={ ({ target }) => this.onChangeValue('email', target.value) }
+            />
           </FormGroup>
           <FormGroup block>
-            <Input type="password" placeholder="비밀번호" />
+            <Input
+              type="password"
+              placeholder="비밀번호"
+              onChange={ ({ target }) => this.onChangeValue('password', target.value) }
+            />
           </FormGroup>
+          {
+            message &&
+            <small className="error">
+              { message }
+            </small>
+          }
         </div>
         <div className="submit">
           <p onClick={ this.onClickRegister }>계정이 없으신가요?</p>
@@ -74,10 +101,22 @@ class LoginModal extends Component {
           .login-modal .submit p:hover {
             color: #2D2D2D;
           }
+          .login-modal .error {
+            color: #F6BDBE;
+          }
         `}</style>
       </div>
     );
   }
 }
 
-export default connect(null, { showModal })(LoginModal);
+const mapStateToProps = ({ Alert }) => ({
+  message: Alert.message,
+});
+
+const mapDispatchtoProps = dispatch => ({
+  login: (email, password) => dispatch(loginActions.request({ email, password })),
+  showModal: (element, props) => dispatch(showModal(element, props)),
+});
+
+export default connect(mapStateToProps, mapDispatchtoProps)(LoginModal);

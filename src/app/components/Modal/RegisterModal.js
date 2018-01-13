@@ -10,6 +10,7 @@ class RegisterModal extends Component {
   static propTypes = {
     register: PropTypes.func.isRequired,
     showModal: PropTypes.func.isRequired,
+    message: PropTypes.string.isRequired,
   };
 
   state = {
@@ -26,11 +27,12 @@ class RegisterModal extends Component {
     register(email, password, name);
   }
 
-  onChangeValue(key, value) {
+  onChangeValue = (key, value) => {
     this.setState({ ...this.state, [key]: value });
   }
 
   render() {
+    const { message } = this.props;
     return (
       <div className="register-modal">
         <h3>회원가입</h3>
@@ -54,6 +56,12 @@ class RegisterModal extends Component {
               onChange={ ({ target }) => this.onChangeValue('name', target.value) }
             />
           </FormGroup>
+          {
+            message &&
+            <p className="error">
+              { message }
+            </p>
+          }
         </div>
         <div className="submit">
           <p onClick={ this.onClickLogin }>이미 계정이 있으세요?</p>
@@ -105,15 +113,26 @@ class RegisterModal extends Component {
           .register-modal .submit p:hover {
             color: #2D2D2D;
           }
+          .register-modal .error {
+            width: 100%;
+            margin-bottom: -0.5rem;
+            text-align: center;
+            color: #F2777A;
+            font-size: 0.75rem;
+          }
         `}</style>
       </div>
     );
   }
 }
 
+const mapStateToProps = ({ Alert }) => ({
+  message: Alert.message,
+});
+
 const mapDispatchToProps = dispatch => ({
   register: (email, password, name) => dispatch(registerActions.request({ email, password, name })),
   showModal: (element, props) => dispatch(showModal(element, props)),
 });
 
-export default connect(null, mapDispatchToProps)(RegisterModal);
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterModal);
