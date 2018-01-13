@@ -1,11 +1,24 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import SweetAlert from 'sweetalert2-react';
+import { hideAlert } from 'modules/Alert';
 import { Modal } from 'components/Modal';
 import Header from './Header';
 
-export default class App extends Component {
+class App extends Component {
   static propTypes = {
+    alert: PropTypes.shape({
+      show: PropTypes.bool,
+      title: PropTypes.string,
+      message: PropTypes.string,
+      type: PropTypes.string,
+      onConfirm: PropTypes.func,
+      onCancel: PropTypes.func,
+      showCancelButton: PropTypes.bool,
+    }).isRequired,
     children: PropTypes.element,
+    hideAlert: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -13,13 +26,31 @@ export default class App extends Component {
   };
 
   render() {
+    const { alert, children, hideAlert } = this.props;
     return (
       <div className="app">
-        <Modal />
         <Header />
         <div className="container">
-          { this.props.children }
+          { children }
         </div>
+        <Modal />
+        <SweetAlert
+          show={ alert.show }
+          title={ alert.title }
+          text={ alert.message }
+          type={ alert.type }
+          onConfirm={ () => {
+            hideAlert();
+            alert.onConfirm && alert.onConfirm();
+          } }
+          onCancel={ () => {
+            hideAlert();
+            alert.onCancel && alert.onCancel();
+          } }
+          showCancelButton={ alert.showCancelButton }
+          confirmButtonText="확인"
+          cancelButtonText="취소"
+        />
         <style jsx>{`
           html {
             font-size: 16px;
@@ -62,3 +93,9 @@ export default class App extends Component {
     );
   }
 }
+
+const mapStateToProps = ({ Alert }) => ({
+  alert: Alert.alert,
+});
+
+export default connect(mapStateToProps, { hideAlert })(App);
