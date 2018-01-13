@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Modal } from 'components/Modal';
 import Header from './Header';
 
 export default class App extends Component {
+  static propTypes = {
+    children: PropTypes.element,
+  };
+
+  static defaultProps = {
+    children: null,
+  };
+
   render() {
     return (
       <div className="app">
+        <Modal />
         <Header />
         { this.props.children }
         <style jsx>{`
