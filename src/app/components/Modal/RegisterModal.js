@@ -2,15 +2,33 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { showModal } from 'modules/Alert';
+import { registerActions } from 'modules/Auth';
 import { FormGroup, Input, IconButton } from 'components/Bootstrap';
 import LoginModal from './LoginModal';
 
 class RegisterModal extends Component {
   static propTypes = {
+    register: PropTypes.func.isRequired,
     showModal: PropTypes.func.isRequired,
   };
 
+  state = {
+    email: '',
+    password: '',
+    name: '',
+  };
+
   onClickLogin = () => this.props.showModal(<LoginModal />);
+
+  onClickRegister = () => {
+    const { register } = this.props;
+    const { email, password, name } = this.state;
+    register(email, password, name);
+  }
+
+  onChangeValue(key, value) {
+    this.setState({ ...this.state, [key]: value });
+  }
 
   render() {
     return (
@@ -18,13 +36,22 @@ class RegisterModal extends Component {
         <h3>회원가입</h3>
         <div className="content">
           <FormGroup block>
-            <Input placeholder="이메일" />
+            <Input
+              placeholder="이메일"
+              onChange={ ({ target }) => this.onChangeValue('email', target.value) }
+            />
           </FormGroup>
           <FormGroup block>
-            <Input placeholder="비밀번호" />
+            <Input
+              placeholder="비밀번호"
+              onChange={ ({ target }) => this.onChangeValue('password', target.value) }
+            />
           </FormGroup>
           <FormGroup block>
-            <Input placeholder="닉네임" />
+            <Input
+              placeholder="닉네임"
+              onChange={ ({ target }) => this.onChangeValue('name', target.value) }
+            />
           </FormGroup>
         </div>
         <div className="submit">
@@ -83,4 +110,9 @@ class RegisterModal extends Component {
   }
 }
 
-export default connect(null, { showModal })(RegisterModal);
+const mapDispatchToProps = dispatch => ({
+  register: (email, password, name) => dispatch(registerActions.request({ email, password, name })),
+  showModal: (element, props) => dispatch(showModal(element, props)),
+});
+
+export default connect(null, mapDispatchToProps)(RegisterModal);

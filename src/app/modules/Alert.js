@@ -5,7 +5,7 @@ const initialState = {
   modal: {
     show: false,
     element: null,
-    props: {}
+    props: {},
   },
 };
 
