@@ -38,8 +38,11 @@ export default class Button extends Component {
           .btn {
             color: #FFF;
           }
+          .btn:active,
+          .btn:focus,
           .btn:hover {
-            color: #FFF;
+            color: #F1F1F1;
+            outline: none !important;
           }
           .btn-normal {
             background-color: #9E9E9E;
