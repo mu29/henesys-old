@@ -17,7 +17,7 @@ class App extends Component {
       onCancel: PropTypes.func,
       showCancelButton: PropTypes.bool,
     }).isRequired,
-    children: PropTypes.element,
+    children: PropTypes.arrayOf(PropTypes.element),
     hideAlert: PropTypes.func.isRequired,
   };
 

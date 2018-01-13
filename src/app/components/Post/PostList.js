@@ -25,7 +25,7 @@ class PostList extends Component {
     const { posts } = this.props;
     return (
       <div className="post-list">
-        { posts.map(post => <PostItem post={ post } />) }
+        { posts.map(post => <PostItem key={ post.id } post={ post } />) }
         <style jsx>{`
           .post-list {
             flex: 1;

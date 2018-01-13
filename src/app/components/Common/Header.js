@@ -11,8 +11,12 @@ class Header extends Component {
     user: PropTypes.shape({
       email: PropTypes.string,
       name: PropTypes.string,
-    }).isRequired,
+    }),
     showModal: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    user: null,
   };
 
   onClickProfile = () => {
