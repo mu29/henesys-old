@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { withReduxSaga } from 'store';
 import App from 'components/Common/App';
-import { PostList, TagList } from 'components/Post';
+import { CreatePostButton, PostList, TagList } from 'components/Post';
 
 class PostIndex extends Component {
+  static propTypes = {
+    tag: PropTypes.string.isRequired,
+    last: PropTypes.string,
+  };
+
+  static defaultProps = {
+    last: null,
+  };
+
   static getInitialProps({ req }) {
-    return { tag: req.query.tag, last: req.query.last }
+    return { tag: req.query.tag, last: req.query.last };
   }
 
   render() {
@@ -13,13 +23,20 @@ class PostIndex extends Component {
       <App>
         <div className="post-index">
           <PostList tag={ this.props.tag } last={ this.props.last } />
-          <TagList tag={ this.props.tag } />
+          <div className="side">
+            <TagList tag={ this.props.tag } />
+            <CreatePostButton />
+          </div>
         </div>
         <style jsx>{`
           .post-index {
             display: flex;
             justify-content: space-between;
             margin-top: 1.5rem;
+          }
+          .post-index > .side {
+            display: flex;
+            flex-direction: column;
           }
         `}</style>
       </App>

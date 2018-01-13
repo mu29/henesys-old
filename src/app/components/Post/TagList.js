@@ -14,7 +14,7 @@ export default (props) => {
   const tags = menu.tags || [];
 
   return (
-    <div className="col-lg-2 col-md-2 col-sm-12 col-xs-12 tag-list">
+    <div className="tag-list">
       <ul>
         {
           tags.map(tag => (
