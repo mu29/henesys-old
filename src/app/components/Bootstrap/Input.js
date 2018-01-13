@@ -4,15 +4,18 @@ import PropTypes from 'prop-types';
 export default class Input extends Component {
   static propTypes = {
     className: PropTypes.string,
+    type: PropTypes.string,
   };
 
   static defaultProps = {
     className: '',
+    type: 'text',
   };
 
   render() {
     const {
       className,
+      type,
       ...props
     } = this.props;
 
@@ -20,7 +23,7 @@ export default class Input extends Component {
       <div>
         <input
           className={ `form-control ${className}` }
-          type="text"
+          type={ type }
           { ...props }
         />
         <style jsx>{`
