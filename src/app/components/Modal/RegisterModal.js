@@ -43,6 +43,7 @@ class RegisterModal extends Component {
           </FormGroup>
           <FormGroup block>
             <Input
+              type="password"
               placeholder="비밀번호"
               onChange={ ({ target }) => this.onChangeValue('password', target.value) }
             />
@@ -56,7 +57,7 @@ class RegisterModal extends Component {
         </div>
         <div className="submit">
           <p onClick={ this.onClickLogin }>이미 계정이 있으세요?</p>
-          <IconButton icon="sign-in" color="black" />
+          <IconButton icon="sign-in" color="black" onClick={ this.onClickRegister } />
         </div>
         <style jsx>{`
           .modal > .wrapper {

@@ -21,12 +21,12 @@ class LoginModal extends Component {
             <Input placeholder="이메일" />
           </FormGroup>
           <FormGroup block>
-            <Input placeholder="비밀번호" />
+            <Input type="password" placeholder="비밀번호" />
           </FormGroup>
         </div>
         <div className="submit">
           <p onClick={ this.onClickRegister }>계정이 없으신가요?</p>
-          <IconButton icon="sign-in" color="black" />
+          <IconButton icon="sign-in" color="black" onClick={ this.onClickLogin } />
         </div>
         <style jsx>{`
           .modal > .wrapper {
