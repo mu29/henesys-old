@@ -1,28 +1,25 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import EditorTextArea from './EditorTextArea';
 import Toolbar from './Toolbar';
 
 export default class Editor extends Component {
+  constructor() {
+    super();
+    this.state = {
+      content: '',
+    };
+  }
+
+  onChangeContent = content => this.setState({ ...this.state, content })
+
   render() {
+    console.log(this.state);
     return (
       <div>
         <Toolbar />
-        <textarea
-          className="editor"
-          rows={ 20 }
-        />
+        <EditorTextArea onChange={ this.onChangeContent } html={ this.state.content } />
         <style jsx>{`
-          .editor {
-            width: 100%;
-            padding: 1rem;
-            font-family: 'Nanum Gothic';
-            font-weight: 300;
-            border: 0.0625rem solid #E0E0E0;
-            resize: none;
-          }
-          .editor:active,
-          .editor:focus {
-            outline: none;
-          }
         `}</style>
       </div>
     );
