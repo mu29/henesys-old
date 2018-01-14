@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 export default class FormGroup extends Component {
   static propTypes = {
+    addon: PropTypes.node,
     block: PropTypes.bool,
     className: PropTypes.string,
     children: PropTypes.element.isRequired,
@@ -11,6 +12,7 @@ export default class FormGroup extends Component {
   };
 
   static defaultProps = {
+    addon: null,
     block: false,
     className: '',
     label: null,
@@ -31,30 +33,36 @@ export default class FormGroup extends Component {
       .input-group.block {
         width: 100%;
       }
+      .form-group > .input-group > .input-group-addon {
+        padding: 0 1rem;
+        border: 0.0625rem solid #E0E0E0;
+        border-right: none;
+        color: #616161;
+        font-weight: 600;
+        background-color: #FAFAFA;
+      }
     `}</style>
   );
 
-  renderInputGroup = (children, block) => (
-    <div className={ `input-group${block ? ' block' : ''}` }>
-      { children }
-    </div>
-  )
+  renderInputGroup = () => {
+    const { children, block, addon } = this.props;
+    return (
+      <div className={ `input-group${block ? ' block' : ''}` }>
+        <div className="input-group-addon">{ addon }</div>
+        { children }
+      </div>
+    );
+  }
 
   renderHorizontal = () => {
-    const {
-      block,
-      className,
-      children,
-      label,
-    } = this.props;
-
+    const { className, label } = this.props;
     return (
       <div className="form-inline">
         <div className={ `form-group ${className}` }>
           <p className="form-label">
             { label }
           </p>
-          { this.renderInputGroup(children, block) }
+          { this.renderInputGroup() }
         </div>
         { this.renderStyle() }
       </div>
@@ -62,37 +70,25 @@ export default class FormGroup extends Component {
   }
 
   renderVertical = () => {
-    const {
-      block,
-      className,
-      children,
-      label,
-    } = this.props;
-
+    const { className, label } = this.props;
     return (
       <div className={ `form-group ${className}` }>
         <div className="form-label">
           { label }
         </div>
-        { this.renderInputGroup(children, block) }
+        { this.renderInputGroup() }
         { this.renderStyle() }
       </div>
     );
   }
 
   render() {
-    const {
-      block,
-      className,
-      children,
-      label,
-      horizontal,
-    } = this.props;
+    const { className, label, horizontal } = this.props;
 
     if (!label) {
       return (
         <div className={ `form-group ${className}` }>
-          { this.renderInputGroup(children, block) }
+          { this.renderInputGroup() }
           { this.renderStyle() }
         </div>
       );
