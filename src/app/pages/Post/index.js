@@ -19,13 +19,14 @@ class PostIndex extends Component {
   }
 
   render() {
+    const { tag, last } = this.props;
     return (
       <App>
         <div className="post-index">
-          <PostList tag={ this.props.tag } last={ this.props.last } />
+          <PostList tag={ tag } last={ last } />
           <div className="side">
-            <TagList tag={ this.props.tag } />
-            <CreatePostButton />
+            <TagList tag={ tag } />
+            <CreatePostButton tag={ tag } />
           </div>
         </div>
         <style jsx>{`
