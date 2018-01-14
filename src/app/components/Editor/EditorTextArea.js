@@ -53,6 +53,7 @@ export default class EditorTextArea extends Component {
           height: 20rem;
           padding: 1rem;
           border: 0.0625rem solid #E0E0E0;
+          font-size: medium;
           font-family: 'Nanum Gothic';
           font-weight: 300;
           background-color: white;
