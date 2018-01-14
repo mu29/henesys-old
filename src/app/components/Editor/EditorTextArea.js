@@ -27,7 +27,7 @@ export default class EditorTextArea extends Component {
     }
   }
 
-  emitChange = ({ target }) => {
+  onChangeText = ({ target }) => {
     const html = target.innerHTML;
     if (this.props.onChange && html !== this.lastHtml) {
       this.props.onChange(html);
@@ -42,9 +42,11 @@ export default class EditorTextArea extends Component {
         <div
           className="editor"
           ref={ (editor) => { this.editor = editor; } }
-          onInput={ this.emitChange }
+          onInput={ this.onChangeText }
+          onDoubleClick={ this.onDoubleClick }
           dangerouslySetInnerHTML={{ __html: this.props.html }}
-          contentEditable />
+          contentEditable
+        />
         <style jsx>{`
         .editor {
           width: 100%;

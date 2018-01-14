@@ -1,25 +1,48 @@
 import React, { Component } from 'react';
 
 const properties = [{
-  name: 'strong',
-  element: <strong>가</strong>,
+  name: 'bold',
+  button: <b>가</b>,
+  command: 'bold',
 }, {
   name: 'italic',
-  element: <i>가</i>,
+  button: <i>가</i>,
+  command: 'italic',
 }, {
   name: 'underline',
-  element: <u>가</u>,
-}, {
-  name: 'stroke',
-  element: <s>가</s>,
+  button: <u>가</u>,
+  command: 'underline',
 }];
 
 export default class Toolbar extends Component {
+  applyCommand = (command) => {
+    document.execCommand(command);
+  }
+
   render() {
-    const ToolbarItem = props => (
-      <button className="editor-toolbar-item">
-        { props.children }
+    const ToolbarItem = ({ children, ...props }) => (
+      <button className="editor-toolbar-item" { ...props }>
+        { children }
+      </button>
+    );
+
+    return (
+      <div className="editor-toolbar">
+        {
+          properties.map(p => (
+            <ToolbarItem onClick={ () => this.applyCommand(p.command) }>
+              { p.button }
+            </ToolbarItem>
+          ))
+        }
         <style jsx>{`
+          .editor-toolbar {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            border: 0.0625rem solid #E0E0E0;
+            background: white;
+          }
           .editor-toolbar-item {
             width: 3rem;
             height: 3rem;
@@ -33,23 +56,10 @@ export default class Toolbar extends Component {
           .editor-toolbar-item:focus,
           .editor-toolbar-item:hover {
             outline: none;
+          }
+          .editor-toolbar-item:hover {
             color: #2D2D2D;
             background-color: #F7F7F7;
-          }
-        `}</style>
-      </button>
-    );
-
-    return (
-      <div className="editor-toolbar">
-        { properties.map(p => (<ToolbarItem>{ p.element }</ToolbarItem>)) }
-        <style jsx>{`
-          .editor-toolbar {
-            display: flex;
-            flex-direction: row;
-            width: 100%;
-            border: 0.0625rem solid #E0E0E0;
-            background: white;
           }
         `}</style>
       </div>
