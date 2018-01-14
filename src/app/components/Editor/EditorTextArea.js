@@ -50,7 +50,7 @@ export default class EditorTextArea extends Component {
         <style jsx>{`
         .editor-text {
           width: 100%;
-          height: 20rem;
+          height: 30rem;
           padding: 1rem;
           border: 0.0625rem solid #E0E0E0;
           border-bottom-left-radius: 0.25rem;
