@@ -40,7 +40,7 @@ export default class EditorTextArea extends Component {
     return (
       <div>
         <div
-          className="editor"
+          className="editor-text"
           ref={ (editor) => { this.editor = editor; } }
           onInput={ this.onChangeText }
           onDoubleClick={ this.onDoubleClick }
@@ -48,18 +48,20 @@ export default class EditorTextArea extends Component {
           contentEditable
         />
         <style jsx>{`
-        .editor {
+        .editor-text {
           width: 100%;
           height: 20rem;
           padding: 1rem;
           border: 0.0625rem solid #E0E0E0;
+          border-bottom-left-radius: 0.25rem;
+          border-bottom-right-radius: 0.25rem;
           font-size: medium;
           font-family: 'Nanum Gothic';
           font-weight: 300;
           background-color: white;
         }
-        .editor:active,
-        .editor:focus {
+        .editor-text:active,
+        .editor-text:focus {
           outline: none;
         }
       `}</style>

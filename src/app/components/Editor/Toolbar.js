@@ -55,7 +55,13 @@ export default class Toolbar extends Component {
             flex-direction: row;
             width: 100%;
             border: 0.0625rem solid #E0E0E0;
+            border-bottom: none;
+            border-top-left-radius: 0.25rem;
+            border-top-right-radius: 0.25rem;
             background: white;
+          }
+          .editor-toolbar-item:first-child {
+            border-top-left-radius: 0.25rem;
           }
           .editor-toolbar-item {
             display: flex;

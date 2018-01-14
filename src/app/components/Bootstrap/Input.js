@@ -3,24 +3,27 @@ import PropTypes from 'prop-types';
 
 export default class Input extends Component {
   static propTypes = {
+    wrapperClassName: PropTypes.string,
     className: PropTypes.string,
     type: PropTypes.string,
   };
 
   static defaultProps = {
+    wrapperClassName: '',
     className: '',
     type: 'text',
   };
 
   render() {
     const {
+      wrapperClassName,
       className,
       type,
       ...props
     } = this.props;
 
     return (
-      <div>
+      <div className={ wrapperClassName }>
         <input
           className={ `form-control ${className}` }
           type={ type }

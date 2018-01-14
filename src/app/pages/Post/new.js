@@ -5,10 +5,18 @@ import App from 'components/Common/App';
 import { Editor } from 'components/Editor';
 
 class PostNew extends Component {
+  static propTypes = {
+    tag: PropTypes.string.isRequired,
+  };
+
+  static getInitialProps({ req }) {
+    return { tag: req.query.tag };
+  }
+
   render() {
     return (
       <App>
-        <Editor />
+        <Editor tag={ this.props.tag } />
         <style jsx>{`
           .post-new {
           }
