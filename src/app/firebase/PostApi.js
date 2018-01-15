@@ -1,23 +1,25 @@
-import { loadAuth, loadDB } from './Firebase';
+import { loadAuth, loadDB, loadFirebase } from './Firebase';
 
-export async function createPost(title, content, tag) {
+export async function createPost(tag, title, content) {
+  const db = await loadDB();
   const auth = await loadAuth();
-  const db = loadDB();
-  const userRef = db.collection('users').doc(auth.currentUser);
+  const firebase = await loadFirebase();
+  const tagRef = db.collection('tags').doc(tag);
+  const userRef = db.collection('users').doc(auth.currentUser.uid);
 
   try {
     const postRef = await db.collection('posts').add({
       title,
       content,
-      tag,
+      tag: tagRef,
       user: userRef,
-      createdAt: db.ServerValue.TIMESTAMP,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     });
     const post = await postRef.get();
     return {
       post: {
         id: post.id,
-        ...post.doc(),
+        ...post.data(),
       },
     };
   } catch (error) {
@@ -53,7 +55,7 @@ export async function readPost(id) {
     return {
       post: {
         id: post.id,
-        ...post.doc(),
+        ...post.data(),
       },
     };
   } catch (error) {

@@ -21,3 +21,8 @@ export async function loadAuth() {
   initFirebase();
   return firebase.auth();
 }
+
+export async function loadFirebase() {
+  initFirebase();
+  return firebase;
+}

@@ -9,8 +9,8 @@ class PostNew extends Component {
     tag: PropTypes.string.isRequired,
   };
 
-  static getInitialProps({ req }) {
-    return { tag: req.query.tag };
+  static getInitialProps({ query }) {
+    return { tag: query.tag };
   }
 
   render() {

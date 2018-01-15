@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Menus from 'constants/Menu';
 import { createPostActions } from 'modules/Post';
-import { FormGroup, Input } from 'components/Bootstrap';
+import { FormGroup, Input, IconButton } from 'components/Bootstrap';
 import { Editor, Toolbar } from 'components/Editor';
 
 class PostForm extends Component {
   static propTypes = {
+    createPost: PropTypes.func.isRequired,
     tag: PropTypes.string.isRequired,
   };
 
@@ -20,6 +21,17 @@ class PostForm extends Component {
   }
 
   onChangeContent = content => this.setState({ ...this.state, content })
+
+  onSubmit = () => {
+    const { createPost, tag } = this.props;
+    const { title, content } = this.state;
+
+    if (title.length === 0 || content.length === 0) {
+      return;
+    }
+
+    createPost(tag, title, content);
+  }
 
   render() {
     const findMenu = (menus, tag) => {
@@ -44,12 +56,24 @@ class PostForm extends Component {
         </FormGroup>
         <Toolbar />
         <Editor onChange={ this.onChangeContent } html={ content } />
+        <IconButton
+          className="post-button"
+          icon="plus"
+          color="black"
+          onClick={ this.onSubmit }
+        >
+          작성하기
+        </IconButton>
         <style jsx>{`
           .post-form input {
             height: 3rem;
             padding: 1rem;
             border-top-right-radius: 0.25rem !important;
             border-bottom-right-radius: 0.25rem !important;
+          }
+          .post-button {
+            margin-top: 1rem;
+            float: right;
           }
         `}</style>
       </div>
