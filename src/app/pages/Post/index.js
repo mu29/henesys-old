@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withReduxSaga } from 'store';
 import App from 'components/Common/App';
-import { CreatePostButton, PostList, TagList } from 'components/Post';
+import { IconButton } from 'components/Bootstrap';
+import { PostList, TagList } from 'components/Post';
+import { Router } from 'routes';
 
 class PostIndex extends Component {
   static propTypes = {
@@ -14,8 +16,8 @@ class PostIndex extends Component {
     last: null,
   };
 
-  static getInitialProps({ req }) {
-    return { tag: req.query.tag, last: req.query.last };
+  static getInitialProps({ query }) {
+    return { tag: query.tag, last: query.last };
   }
 
   render() {
@@ -26,7 +28,15 @@ class PostIndex extends Component {
           <PostList tag={ tag } last={ last } />
           <div className="side">
             <TagList tag={ tag } />
-            <CreatePostButton tag={ tag } />
+            <IconButton
+              className="post-button"
+              icon="plus"
+              color="black"
+              style={{ height: 48 }}
+              onClick={ () => Router.pushRoute(`/posts/new?tag=${tag}`) }
+            >
+              작성하기
+            </IconButton>
           </div>
         </div>
         <style jsx>{`
@@ -37,6 +47,10 @@ class PostIndex extends Component {
           .post-index > .side {
             display: flex;
             flex-direction: column;
+          }
+          .post-button {
+            margin-top: 1rem;
+            font-size: 0.875rem;
           }
         `}</style>
       </App>
