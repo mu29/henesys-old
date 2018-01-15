@@ -39,8 +39,8 @@ class PostList extends Component {
   }
 }
 
-const mapStateToProps = ({ Post }) => ({
-  posts: Post.posts,
+const mapStateToProps = ({ Post }, { tag }) => ({
+  posts: Post.posts.filter(p => p.tag === tag),
 });
 
 const mapDispatchToProps = dispatch => ({
