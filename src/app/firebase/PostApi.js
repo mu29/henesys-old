@@ -18,8 +18,9 @@ export async function createPost(tag, title, content) {
     const post = await postRef.get();
     return {
       post: {
-        id: post.id,
         ...post.data(),
+        id: post.id,
+        tag,
       },
     };
   } catch (error) {
