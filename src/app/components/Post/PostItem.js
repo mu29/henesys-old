@@ -7,7 +7,7 @@ export default props => (
     <div className="content">
       <h4>{ props.post.title }</h4>
       <div>
-        <small>{ moment(props.post.created_at).fromNow() }, 뮤</small>
+        <small>{ moment(props.post.createdAt).fromNow() }, 뮤</small>
       </div>
     </div>
     <div className="comment">
