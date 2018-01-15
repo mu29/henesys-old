@@ -48,7 +48,7 @@ export default class FormGroup extends Component {
     const { children, block, addon } = this.props;
     return (
       <div className={ `input-group${block ? ' block' : ''}` }>
-        <div className="input-group-addon">{ addon }</div>
+        { addon && <div className="input-group-addon">{ addon }</div> }
         { children }
       </div>
     );
