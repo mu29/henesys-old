@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withReduxSaga } from 'store';
 import App from 'components/Common/App';
-import { Editor } from 'components/Editor';
+import { PostForm } from 'components/Post';
 
 class PostNew extends Component {
   static propTypes = {
@@ -16,7 +16,7 @@ class PostNew extends Component {
   render() {
     return (
       <App>
-        <Editor tag={ this.props.tag } />
+        <PostForm tag={ this.props.tag } />
         <style jsx>{`
           .post-new {
           }

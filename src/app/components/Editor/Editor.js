@@ -1,65 +1,72 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Menus from 'constants/Menu';
-import { createPostActions } from 'modules/Post';
-import { FormGroup, Input } from 'components/Bootstrap';
-import EditorTextArea from './EditorTextArea';
-import Toolbar from './Toolbar';
 
-class Editor extends Component {
+export default class EditorTextArea extends Component {
   static propTypes = {
-    tag: PropTypes.string.isRequired,
+    html: PropTypes.string,
+    onChange: PropTypes.func,
   };
 
-  constructor() {
-    super();
-    this.state = {
-      title: '',
-      content: '',
-    };
+  static defaultProps = {
+    html: '',
+    onChange: null,
+  };
+
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.html !== this.editor.innerHTML) {
+      return true;
+    }
+
+    const optional = ['style', 'className'];
+    return optional.some(name => this.props[name] !== nextProps[name]);
   }
 
-  onChangeContent = content => this.setState({ ...this.state, content })
+  componentDidUpdate() {
+    if (this.props.html !== this.editor.innerHTML) {
+      this.editor.innerHTML = this.props.html;
+    }
+  }
+
+  onChangeText = ({ target }) => {
+    const html = target.innerHTML;
+    if (this.props.onChange && html !== this.lastHtml) {
+      this.props.onChange(html);
+    }
+    this.lastHtml = html;
+  }
 
   render() {
-    const findMenu = (menus, tag) => {
-      if (!menus) {
-        return null;
-      }
-
-      const menu = menus.find(m => m.id === tag);
-      return menu || menus.map(m => findMenu(m.tags, tag)).find(Boolean);
-    };
-    const menu = findMenu(Menus, this.props.tag);
-    const { title, content } = this.state;
-
+    /* eslint-disable */
     return (
-      <div className="editor">
-        <FormGroup addon={ menu.name }>
-          <Input
-            value={ title }
-            onChange={ ({ target }) => { this.setState({ ...this.state, title: target.value }); } }
-            placeholder="제목을 입력해주세요"
-          />
-        </FormGroup>
-        <Toolbar />
-        <EditorTextArea onChange={ this.onChangeContent } html={ content } />
+      <div>
+        <div
+          className="editor"
+          ref={ (editor) => { this.editor = editor; } }
+          onInput={ this.onChangeText }
+          onDoubleClick={ this.onDoubleClick }
+          dangerouslySetInnerHTML={{ __html: this.props.html }}
+          contentEditable
+        />
         <style jsx>{`
-          .editor input {
-            height: 3rem;
+          .editor {
+            width: 100%;
+            height: 30rem;
             padding: 1rem;
-            border-top-right-radius: 0.25rem !important;
-            border-bottom-right-radius: 0.25rem !important;
+            border: 0.0625rem solid #E0E0E0;
+            border-bottom-left-radius: 0.25rem;
+            border-bottom-right-radius: 0.25rem;
+            font-size: medium;
+            font-family: 'Nanum Gothic';
+            font-weight: 300;
+            background-color: white;
+          }
+          .editor:active,
+          .editor:focus {
+            outline: none;
           }
         `}</style>
       </div>
     );
+    /* eslint-enable */
   }
 }
-
-const mapDispatchToProps = dispatch => ({
-  createPost: (tag, title, content) => dispatch(createPostActions.request({ tag, title, content })),
-});
-
-export default connect(null, mapDispatchToProps)(Editor);
