@@ -36,12 +36,12 @@ export default class Button extends Component {
         { children }
         <style jsx>{`
           .btn {
-            color: #FFF;
+            color: #F1F1F1;
           }
           .btn:active,
           .btn:focus,
           .btn:hover {
-            color: #F1F1F1;
+            color: #F9D14C;
             outline: none !important;
           }
           .btn-normal {
