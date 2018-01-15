@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Router } from 'routes';
 import { withReduxSaga } from 'store';
 import App from 'components/Common/App';
 import { IconButton } from 'components/Bootstrap';
 import { PostList, TagList } from 'components/Post';
-import { Router } from 'routes';
 
 class PostIndex extends Component {
   static propTypes = {

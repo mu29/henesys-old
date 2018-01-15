@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Menus from 'constants/Menu';
 import { showModal } from 'modules/Alert';
 import { LoginModal } from 'components/Modal';
-import Menus from 'constants/Menu';
-import { IconButton } from 'components/Bootstrap';
+import { IconButton, Link } from 'components/Bootstrap';
 
 class Header extends Component {
   static propTypes = {
@@ -39,7 +39,13 @@ class Header extends Component {
                 {
                   Menus.map(m => (
                     <li key={ m.id }>
-                      <a className="menu-item" href={ `/posts?tag=${m.id}` }>{ m.name }</a>
+                      <Link
+                        className="menu-item"
+                        href="posts"
+                        query={{ tag: m.id }}
+                      >
+                        { m.name }
+                      </Link>
                     </li>
                   ))
                 }
