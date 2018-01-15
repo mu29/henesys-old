@@ -10,6 +10,7 @@ export default class extends Document {
       errorHtml,
       chunks,
     } = renderPage();
+
     return {
       html, head, errorHtml, chunks,
     };

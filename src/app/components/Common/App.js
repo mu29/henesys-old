@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import SweetAlert from 'sweetalert2-react';
+import { loadAuth } from 'firebase/Firebase';
+import { loginActions } from 'modules/Auth';
 import { hideAlert } from 'modules/Alert';
 import { Modal } from 'components/Modal';
 import Header from './Header';
@@ -24,6 +26,17 @@ class App extends Component {
   static defaultProps = {
     children: null,
   };
+
+  componentDidMount() {
+    loadAuth().then((auth) => {
+      auth.onAuthStateChanged((user) => {
+        this.props.login({
+          email: user.email,
+          name: user.displayName,
+        });
+      });
+    });
+  }
 
   render() {
     const { alert, children, hideAlert } = this.props;
@@ -98,4 +111,9 @@ const mapStateToProps = ({ Alert }) => ({
   alert: Alert.alert,
 });
 
-export default connect(mapStateToProps, { hideAlert })(App);
+const mapDispatchToProps = dispatch => ({
+  hideAlert: () => dispatch(hideAlert()),
+  login: user => dispatch(loginActions.success({ user })),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
