@@ -5,7 +5,10 @@ import Button from './Button';
 export default class IconButton extends Component {
   static propTypes = {
     className: PropTypes.string,
-    children: PropTypes.element,
+    children: PropTypes.oneOfType([
+      PropTypes.element,
+      PropTypes.string,
+    ]),
     icon: PropTypes.string.isRequired,
     size: PropTypes.number,
   };

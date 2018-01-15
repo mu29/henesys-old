@@ -5,7 +5,11 @@ export default class Button extends Component {
   static propTypes = {
     block: PropTypes.bool,
     className: PropTypes.string,
-    children: PropTypes.element.isRequired,
+    children: PropTypes.oneOfType([
+      PropTypes.element,
+      PropTypes.string,
+      PropTypes.array,
+    ]).isRequired,
     color: PropTypes.string,
     onClick: PropTypes.func,
   };
