@@ -31,7 +31,7 @@ class App extends Component {
 
   componentDidMount() {
     const { login, user } = this.props;
-    
+
     if (user) {
       return;
     }

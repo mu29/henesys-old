@@ -8,12 +8,18 @@ import {
   fetchPostListActions,
 } from 'modules/Post';
 import { createPost, readPostList } from 'firebase/PostApi';
+import { Router } from 'routes';
 
 function* addPost({ tag, title, content }) {
   const { post, error } = yield call(createPost, tag, title, content);
-  yield put(post ?
-    createPostActions.success({ post }) :
-    createPostActions.failure({ error }));
+
+  if (!post) {
+    yield put(createPostActions.failure({ error }));
+    return;
+  }
+
+  Router.pushRoute(`/posts?tag=${tag}`);
+  yield put(createPostActions.success({ post }));
 }
 
 function* loadPostList({ tag, last }) {
