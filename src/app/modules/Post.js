@@ -11,12 +11,14 @@ export const fetchPostListActions = makeFetchActionCreators(fetchPostListActionT
 export const createPostActionTypes = makeFetchActionTypes('CREATE_POST');
 export const createPostActions = makeFetchActionCreators(createPostActionTypes);
 
+const createdAtDesc = (post1, post2) => (post1.createdAt < post2.createdAt);
+
 export default function (state = initialState, action) {
   switch (action.type) {
     case fetchPostListActionTypes.SUCCESS:
-      return { ...state, posts: uniqBy([...state.posts, ...action.posts], 'id') };
+      return { ...state, posts: uniqBy([...action.posts, ...state.posts], 'id').sort(createdAtDesc) };
     case createPostActionTypes.SUCCESS:
-      return { ...state, posts: [...state.posts, action.post] };
+      return { ...state, posts: [action.post, ...state.posts].sort(createdAtDesc) };
     default:
       return state;
   }
