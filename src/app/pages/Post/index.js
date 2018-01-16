@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Router } from 'routes';
 import { withReduxSaga } from 'store';
+import Menus from 'constants/Menu';
 import App from 'components/Common/App';
 import { IconButton } from 'components/Bootstrap';
 import { PostList, TagList } from 'components/Post';
@@ -22,21 +23,35 @@ class PostIndex extends Component {
 
   render() {
     const { tag, last } = this.props;
+    const findMenu = (menus, tag) => {
+      if (!menus) {
+        return null;
+      }
+
+      const menu = menus.find(m => m.id === tag);
+      return menu || menus.map(m => findMenu(m.tags, tag)).find(Boolean);
+    };
+    const menu = findMenu(Menus, this.props.tag);
+    const isWriteable = !menu.tags;
+
     return (
       <App>
         <div className="post-index">
           <PostList tag={ tag } last={ last } />
           <div className="side">
             <TagList tag={ tag } />
-            <IconButton
-              className="post-button"
-              icon="plus"
-              color="black"
-              style={{ height: 48 }}
-              onClick={ () => Router.pushRoute(`/posts/new?tag=${tag}`) }
-            >
-              작성하기
-            </IconButton>
+            {
+              isWriteable &&
+              <IconButton
+                className="post-button"
+                icon="plus"
+                color="black"
+                style={{ height: 48 }}
+                onClick={ () => Router.pushRoute(`/posts/new?tag=${tag}`) }
+              >
+                작성하기
+              </IconButton>
+            }
           </div>
         </div>
         <style jsx>{`
