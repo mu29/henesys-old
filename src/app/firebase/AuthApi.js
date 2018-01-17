@@ -1,10 +1,9 @@
-import { loginActions } from 'modules/Auth';
 import { loadDB, loadAuth, loadFirebase } from './Firebase';
 
 export async function register(email, password, name) {
-  const db = await loadDB();
-  const auth = await loadAuth();
-  const firebase = await loadFirebase();
+  const db = loadDB();
+  const auth = loadAuth();
+  const firebase = loadFirebase();
 
   try {
     await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
@@ -26,9 +25,9 @@ export async function register(email, password, name) {
 }
 
 export async function login(email, password) {
-  const db = await loadDB();
-  const auth = await loadAuth();
-  const firebase = await loadFirebase();
+  const db = loadDB();
+  const auth = loadAuth();
+  const firebase = loadFirebase();
 
   try {
     await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);

@@ -22,30 +22,22 @@ class App extends Component {
     children: PropTypes.arrayOf(PropTypes.element),
     hideAlert: PropTypes.func.isRequired,
     login: PropTypes.func.isRequired,
-    user: PropTypes.objectOf(PropTypes.string).isRequired,
   };
 
   static defaultProps = {
     children: null,
   };
 
-  componentDidMount() {
-    const { login, user } = this.props;
-
-    if (user) {
-      return;
-    }
-
-    loadAuth().then((auth) => {
-      auth.onAuthStateChanged((currentUser) => {
-        if (!currentUser) {
-          return;
-        }
-
-        login({
-          email: user.email,
-          name: user.displayName,
-        });
+  async componentWillMount() {
+    const { login } = this.props;
+    const auth = loadAuth();
+    auth.onAuthStateChanged((currentUser) => {
+      if (!currentUser) {
+        return;
+      }
+      login({
+        email: currentUser.email,
+        name: currentUser.displayName,
       });
     });
   }
@@ -119,9 +111,8 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({ Alert, Auth }) => ({
+const mapStateToProps = ({ Alert }) => ({
   alert: Alert.alert,
-  user: Auth.user,
 });
 
 const mapDispatchToProps = dispatch => ({

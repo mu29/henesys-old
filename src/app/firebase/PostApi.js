@@ -1,9 +1,9 @@
 import { loadAuth, loadDB, loadFirebase } from './Firebase';
 
 export async function createPost(tag, title, content) {
-  const db = await loadDB();
-  const auth = await loadAuth();
-  const firebase = await loadFirebase();
+  const db = loadDB();
+  const auth = loadAuth();
+  const firebase = loadFirebase();
   const tagRef = db.collection('tags').doc(tag);
   const userRef = db.collection('users').doc(auth.currentUser.uid);
 
@@ -29,7 +29,7 @@ export async function createPost(tag, title, content) {
 }
 
 export async function readPostList(tag, last) {
-  const db = await loadDB();
+  const db = loadDB();
   const tagRef = db.collection('tags').doc(tag);
 
   let query = db.collection('posts')
@@ -50,7 +50,7 @@ export async function readPostList(tag, last) {
 }
 
 export async function readPost(id) {
-  const db = await loadDB();
+  const db = loadDB();
   try {
     const post = await db.collection('posts').doc(id).get();
     return {

@@ -12,17 +12,17 @@ function initFirebase() {
   }
 }
 
-export async function loadDB() {
+export function loadDB() {
   initFirebase();
   return firebase.firestore();
 }
 
-export async function loadAuth() {
+export function loadAuth() {
   initFirebase();
   return firebase.auth();
 }
 
-export async function loadFirebase() {
+export function loadFirebase() {
   initFirebase();
   return firebase;
 }
