@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Menus from 'constants/Menu';
 import { Link } from 'components/Bootstrap';
+import { findRootMenu } from 'utils';
 
 export default class TagList extends Component {
   static propTypes = {
@@ -10,26 +10,26 @@ export default class TagList extends Component {
 
   render() {
     const { tag } = this.props;
-    const findRootMenu = (menus, tag, root) => {
-      if (!menus) {
-        return null;
-      }
-      const menu = menus.find(m => m.id === tag);
-      return menu ?
-        (root || menu) :
-        menus.map(m => findRootMenu(m.tags, tag, root || m)).find(Boolean);
-    };
-    const menu = findRootMenu(Menus, tag);
+    const menu = findRootMenu(tag);
     const tags = menu.tags || [];
 
     return (
       <div className="tag-list">
         <ul>
+          <li>
+            <Link
+              className={ menu.id === tag ? 'selected' : '' }
+              href="posts"
+              query={{ tag: menu.id }}
+            >
+              전체보기
+            </Link>
+          </li>
           {
             tags.map(t => (
               <li key={ t.id }>
                 <Link
-                  className={ t.id === tag ? 'selected' : ''  }
+                  className={ t.id === tag ? 'selected' : '' }
                   href="posts"
                   query={{ tag: t.id }}
                 >
@@ -61,7 +61,7 @@ export default class TagList extends Component {
           .tag-list li:last-child {
             border-bottom: none;
           }
-          .tag-list li > .link {
+          .tag-list li .link {
             color: #616161;
             font-weight: 300;
             font-size: 1rem;
@@ -70,9 +70,9 @@ export default class TagList extends Component {
           .tag-list li .selected {
             font-weight: 400;
           }
-          .tag-list li > .link:hover,
-          .tag-list li > .link:active,
-          .tag-list li > .link:focus {
+          .tag-list li .link:hover,
+          .tag-list li .link:active,
+          .tag-list li .link:focus {
             font-weight: 400;
             text-decoration: none;
           }

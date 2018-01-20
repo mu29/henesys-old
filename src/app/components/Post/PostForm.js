@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Menus from 'constants/Menu';
 import { createPostActions } from 'modules/Post';
 import { FormGroup, Input, IconButton } from 'components/Bootstrap';
 import { Editor, Toolbar } from 'components/Editor';
+import { findMenu } from 'utils';
 
 class PostForm extends Component {
   static propTypes = {
@@ -34,15 +34,7 @@ class PostForm extends Component {
   }
 
   render() {
-    const findMenu = (menus, tag) => {
-      if (!menus) {
-        return null;
-      }
-
-      const menu = menus.find(m => m.id === tag);
-      return menu || menus.map(m => findMenu(m.tags, tag)).find(Boolean);
-    };
-    const menu = findMenu(Menus, this.props.tag);
+    const menu = findMenu(this.props.tag);
     const { title, content } = this.state;
 
     return (
