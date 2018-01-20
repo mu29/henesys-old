@@ -5,13 +5,16 @@ import { fetchPostActions } from 'modules/Post';
 
 class PostView extends Component {
   static propTypes = {
-    postId: PropTypes.string.isRequired,
     post: PropTypes.shape({
       id: PropTypes.string,
       title: PropTypes.string,
       content: PropTypes.string,
-    }).isRequired,
+    }),
     fetchPost: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    post: {},
   };
 
   componentWillMount() {

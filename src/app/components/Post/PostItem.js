@@ -35,6 +35,7 @@ export default class PostItem extends Component {
         <style jsx>{`
           .post-item {
             display: flex;
+            height: 4.375rem;
             width: 100%;
             border-bottom: 0.0625rem solid #EEEEEE;
             cursor: pointer;

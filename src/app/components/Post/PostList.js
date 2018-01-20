@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { difference } from 'lodash';
-import { fetchPostListActions } from 'modules/Post';
+import { Loading } from 'components/Bootstrap';
+import { fetchPostListActions, fetchPostListActionTypes } from 'modules/Post';
 import { findMenu } from 'utils';
 import PostItem from './PostItem';
 
@@ -10,6 +11,7 @@ class PostList extends Component {
   static propTypes = {
     tags: PropTypes.arrayOf(PropTypes.string).isRequired,
     last: PropTypes.string,
+    loading: PropTypes.string.isRequired,
     posts: PropTypes.arrayOf(PropTypes.object).isRequired,
     fetchPostList: PropTypes.func.isRequired,
   }
@@ -31,12 +33,19 @@ class PostList extends Component {
   }
 
   render() {
-    const { posts } = this.props;
+    const { posts, loading } = this.props;
     return (
       <div className="post-list">
         { posts.map(post => <PostItem key={ post.id } post={ post } />) }
+        <Loading
+          identifier={ fetchPostListActionTypes.REQUEST }
+          loading={ loading }
+        />
         <style jsx>{`
           .post-list {
+            display: flex;
+            flex-direction: column;
+            min-height: 50vh;
             border-radius: 0.25rem;
             background-color: white;
           }
@@ -46,16 +55,18 @@ class PostList extends Component {
   }
 }
 
-const mapStateToProps = ({ Post }, { tag }) => {
+const mapStateToProps = ({ Alert, Post }, { tag }) => {
   const menu = findMenu(tag);
   if (menu.enable) {
     return {
+      loading: Alert.loading,
       posts: Post.posts.filter(p => p.tag === tag),
       tags: [menu.id],
     };
   }
 
   return {
+    loading: Alert.loading,
     posts: Post.posts.filter(p => menu.tags.find(t => t.id === p.tag)),
     tags: menu.tags.map(t => t.id),
   };

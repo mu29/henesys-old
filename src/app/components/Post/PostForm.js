@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { createPostActions } from 'modules/Post';
-import { FormGroup, Input, IconButton } from 'components/Bootstrap';
+import { createPostActions, createPostActionTypes } from 'modules/Post';
+import { FormGroup, Input, LoadingButton } from 'components/Bootstrap';
 import { Editor, Toolbar } from 'components/Editor';
 import { findEnableMenu } from 'utils';
 
 class PostForm extends Component {
   static propTypes = {
     createPost: PropTypes.func.isRequired,
+    loading: PropTypes.string.isRequired,
     menu: PropTypes.shape({
       id: PropTypes.string,
       name: PropTypes.string,
@@ -37,7 +38,7 @@ class PostForm extends Component {
   }
 
   render() {
-    const { menu } = this.props;
+    const { menu, loading } = this.props;
     const { title, content } = this.state;
 
     return (
@@ -51,14 +52,17 @@ class PostForm extends Component {
         </FormGroup>
         <Toolbar />
         <Editor onChange={ this.onChangeContent } html={ content } />
-        <IconButton
+        <LoadingButton
           className="post-button"
           icon="plus"
           color="black"
+          loadingColor="white"
+          identifier={ createPostActionTypes.REQUEST }
+          loading={ loading }
           onClick={ this.onSubmit }
         >
           작성하기
-        </IconButton>
+        </LoadingButton>
         <style jsx>{`
           .post-form input {
             height: 3rem;
@@ -69,6 +73,8 @@ class PostForm extends Component {
           .post-button {
             margin-top: 1rem;
             float: right;
+            width: 4.653125rem;
+            height: 2.125rem;
           }
         `}</style>
       </div>
@@ -76,7 +82,8 @@ class PostForm extends Component {
   }
 }
 
-const mapStateToProps = (state, { tag }) => ({
+const mapStateToProps = ({ Alert }, { tag }) => ({
+  loading: Alert.loading,
   menu: findEnableMenu(tag),
 });
 
