@@ -4,12 +4,15 @@ import PropTypes from 'prop-types';
 import { createPostActions } from 'modules/Post';
 import { FormGroup, Input, IconButton } from 'components/Bootstrap';
 import { Editor, Toolbar } from 'components/Editor';
-import { findMenu } from 'utils';
+import { findEnableMenu } from 'utils';
 
 class PostForm extends Component {
   static propTypes = {
     createPost: PropTypes.func.isRequired,
-    tag: PropTypes.string.isRequired,
+    menu: PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+    }).isRequired,
   };
 
   constructor() {
@@ -23,18 +26,18 @@ class PostForm extends Component {
   onChangeContent = content => this.setState({ ...this.state, content })
 
   onSubmit = () => {
-    const { createPost, tag } = this.props;
+    const { createPost, menu } = this.props;
     const { title, content } = this.state;
 
     if (title.length === 0 || content.length === 0) {
       return;
     }
 
-    createPost(tag, title, content);
+    createPost(menu.id, title, content);
   }
 
   render() {
-    const menu = findMenu(this.props.tag);
+    const { menu } = this.props;
     const { title, content } = this.state;
 
     return (
@@ -73,8 +76,12 @@ class PostForm extends Component {
   }
 }
 
+const mapStateToProps = (state, { tag }) => ({
+  menu: findEnableMenu(tag),
+});
+
 const mapDispatchToProps = dispatch => ({
   createPost: (tag, title, content) => dispatch(createPostActions.request({ tag, title, content })),
 });
 
-export default connect(null, mapDispatchToProps)(PostForm);
+export default connect(mapStateToProps, mapDispatchToProps)(PostForm);

@@ -23,16 +23,6 @@ class PostIndex extends Component {
 
   render() {
     const { tag, last } = this.props;
-    const findMenu = (menus, tag) => {
-      if (!menus) {
-        return null;
-      }
-
-      const menu = menus.find(m => m.id === tag);
-      return menu || menus.map(m => findMenu(m.tags, tag)).find(Boolean);
-    };
-    const menu = findMenu(Menus, this.props.tag);
-    const isWriteable = !menu.tags;
 
     return (
       <App>
@@ -40,18 +30,15 @@ class PostIndex extends Component {
           <PostList tag={ tag } last={ last } />
           <div className="side">
             <TagList tag={ tag } />
-            {
-              isWriteable &&
-              <IconButton
-                className="post-button"
-                icon="plus"
-                color="black"
-                style={{ height: 48 }}
-                onClick={ () => Router.pushRoute(`/posts/new?tag=${tag}`) }
-              >
-                작성하기
-              </IconButton>
-            }
+            <IconButton
+              className="post-button"
+              icon="plus"
+              color="black"
+              style={{ height: 48 }}
+              onClick={ () => Router.pushRoute(`/posts/new?tag=${tag}`) }
+            >
+              작성하기
+            </IconButton>
           </div>
         </div>
         <style jsx>{`
