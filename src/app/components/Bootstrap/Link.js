@@ -8,6 +8,7 @@ export default class Link extends Component {
     children: PropTypes.oneOfType([
       PropTypes.element,
       PropTypes.string,
+      PropTypes.array,
     ]),
     href: PropTypes.string.isRequired,
     query: PropTypes.objectOf(PropTypes.string),
