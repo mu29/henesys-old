@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "babel-plugin-module-resolver": "^3.0.0",
+    "better-react-spinkit": "^2.0.4",
     "firebase": "4.8.0",
     "lodash": "^4.17.4",
     "moment": "^2.20.1",

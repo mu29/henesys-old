@@ -7,6 +7,9 @@ export const HIDE_ALERT = 'HIDE_ALERT';
 export const SHOW_MESSAGE = 'SHOW_MESSAGE';
 export const HIDE_MESSAGE = 'HIDE_MESSAGE';
 
+export const SHOW_LOADING = 'SHOW_LOADING';
+export const HIDE_LOADING = 'HIDE_LOADING';
+
 const initialState = {
   modal: {
     show: false,
@@ -23,6 +26,7 @@ const initialState = {
     showCancelButton: false,
   },
   message: '',
+  loading: '',
 };
 
 export default function (state = initialState, action) {
@@ -65,6 +69,10 @@ export default function (state = initialState, action) {
       return { ...state, message: action.message };
     case HIDE_MESSAGE:
       return { ...state, message: '' };
+    case SHOW_LOADING:
+      return { ...state, loading: action.loadingType };
+    case HIDE_LOADING:
+      return { ...state, loading: '' };
     default:
       return state;
   }
@@ -122,5 +130,18 @@ export function showMessage(message) {
 export function hideMessage() {
   return {
     type: HIDE_MESSAGE,
+  };
+}
+
+export function showLoading(loadingType) {
+  return {
+    type: SHOW_LOADING,
+    loadingType,
+  };
+}
+
+export function hideLoading() {
+  return {
+    type: HIDE_LOADING,
   };
 }

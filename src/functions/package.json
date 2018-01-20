@@ -11,6 +11,7 @@
   "dependencies": {
     "babel-plugin-module-resolver": "^3.0.0",
     "babel-runtime": "^6.26.0",
+    "better-react-spinkit": "^2.0.4",
     "firebase": "4.8.0",
     "firebase-admin": "~5.4.2",
     "firebase-functions": "^0.7.1",
