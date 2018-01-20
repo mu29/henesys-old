@@ -37,8 +37,6 @@ class PostList extends Component {
         { posts.map(post => <PostItem key={ post.id } post={ post } />) }
         <style jsx>{`
           .post-list {
-            flex: 1;
-            margin-right: 1.5rem;
             border-radius: 0.25rem;
             background-color: white;
           }

@@ -15,7 +15,7 @@ class PostNew extends Component {
 
   render() {
     return (
-      <App>
+      <App noSideBar>
         <PostForm tag={ this.props.tag } />
       </App>
     );
