@@ -6,7 +6,7 @@ import { loadAuth } from 'firebase/Firebase';
 import { loginActions } from 'modules/Auth';
 import { hideAlert } from 'modules/Alert';
 import { Modal } from 'components/Modal';
-import Header from './Header';
+import { Header, Container, SideBar, GlobalStyle } from 'components/Common';
 
 class App extends Component {
   static propTypes = {
@@ -22,10 +22,12 @@ class App extends Component {
     children: PropTypes.arrayOf(PropTypes.element),
     hideAlert: PropTypes.func.isRequired,
     login: PropTypes.func.isRequired,
+    noSideBar: PropTypes.boolean,
   };
 
   static defaultProps = {
     children: null,
+    noSideBar: false,
   };
 
   async componentWillMount() {
@@ -43,12 +45,22 @@ class App extends Component {
   }
 
   render() {
-    const { alert, children, hideAlert } = this.props;
+    const { alert, hideAlert, noSideBar } = this.props;
+    const children = React.Children.toArray(this.props.children);
+
     return (
       <div className="app">
         <Header />
-        <div className="container">
-          { children }
+        <div className="container wrapper">
+          <Container>
+            { children[0] }
+          </Container>
+          {
+            !noSideBar &&
+            <SideBar>
+              { children.filter((c, i) => i !== 0) }
+            </SideBar>
+          }
         </div>
         <Modal />
         <SweetAlert
@@ -69,14 +81,6 @@ class App extends Component {
           cancelButtonText="취소"
         />
         <style jsx>{`
-          html {
-            font-size: 16px;
-            font-family: 'Nanum Gothic';
-          }
-          html, body, body > div:first-child, #__next, #__next > div:first-child  {
-            height: 100%;
-            margin: 0;
-          }
           .app {
             display: flex;
             flex-direction: column;
@@ -84,28 +88,12 @@ class App extends Component {
             height: 100%;
             background-color: #F1F1F1
           }
-          .container {
-            width: 100%;
-          }
-          @media (min-width: 768px) {
-            .container {
-                max-width: 750px;
-            }
-          }
-          @media (min-width: 992px) {
-            .container {
-                max-width: 970px;
-            }
-          }
-          .glyphicon.fa {
-            font-family: "FontAwesome" !important;
-          }
-          a:hover, a:active, a:focus {
-            outline: none;
-            text-decoration: none;
-            cursor: pointer;
+          .app .wrapper {
+            display: flex;
+            justify-content: space-between;
           }
         `}</style>
+        <GlobalStyle />
       </div>
     );
   }
