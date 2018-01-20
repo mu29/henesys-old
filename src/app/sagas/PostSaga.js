@@ -1,6 +1,6 @@
 // @flow
 
-import { takeLatest, put, call } from 'redux-saga/effects';
+import { takeEvery, takeLatest, put, call } from 'redux-saga/effects';
 import {
   createPostActionTypes,
   createPostActions,
@@ -43,7 +43,7 @@ export function* watchCreatePost() {
 }
 
 export function* watchFetchPostList() {
-  yield takeLatest(fetchPostListActionTypes.REQUEST, loadPostList);
+  yield takeEvery(fetchPostListActionTypes.REQUEST, loadPostList);
 }
 
 export function* watchFetchPost() {
