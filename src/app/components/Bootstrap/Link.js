@@ -23,7 +23,7 @@ export default class Link extends Component {
   onClick = () => {
     const { href, query } = this.props;
     const params = Object.keys(query).map(key => `${key}=${query[key]}`).join('&');
-    Router.pushRoute(`/${href}?${params}`);
+    Router.pushRoute(`${href}?${params}`);
   }
 
   render() {

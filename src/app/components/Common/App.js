@@ -19,10 +19,13 @@ class App extends Component {
       onCancel: PropTypes.func,
       showCancelButton: PropTypes.bool,
     }).isRequired,
-    children: PropTypes.arrayOf(PropTypes.element),
+    children: PropTypes.oneOfType([
+      PropTypes.element,
+      PropTypes.arrayOf(PropTypes.element),
+    ]),
     hideAlert: PropTypes.func.isRequired,
     login: PropTypes.func.isRequired,
-    noSideBar: PropTypes.boolean,
+    noSideBar: PropTypes.bool,
   };
 
   static defaultProps = {

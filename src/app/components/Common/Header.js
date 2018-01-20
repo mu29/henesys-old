@@ -32,16 +32,16 @@ class Header extends Component {
         <div className="container">
           <div className="content">
             <div className="menu-area">
-              <a href="/">
+              <Link href="/">
                 <img src="/static/logo.png" alt="헤네시스" />
-              </a>
+              </Link>
               <ul>
                 {
                   Menus.map(m => (
                     <li key={ m.id }>
                       <Link
                         className="menu-item"
-                        href="posts"
+                        href="/posts"
                         query={{ tag: m.id }}
                       >
                         { m.name }

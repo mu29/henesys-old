@@ -19,7 +19,7 @@ export default class TagList extends Component {
           <li>
             <Link
               className={ menu.id === tag ? 'selected' : '' }
-              href="posts"
+              href="/posts"
               query={{ tag: menu.id }}
             >
               전체보기
@@ -30,7 +30,7 @@ export default class TagList extends Component {
               <li key={ t.id }>
                 <Link
                   className={ t.id === tag ? 'selected' : '' }
-                  href="posts"
+                  href="/posts"
                   query={{ tag: t.id }}
                 >
                   { t.name }

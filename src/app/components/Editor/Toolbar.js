@@ -1,33 +1,43 @@
 import React, { Component } from 'react';
 
 const commands = [{
+  name: 'bold',
   button: <b>가</b>,
   command: () => document.execCommand('bold'),
 }, {
+  name: 'italic',
   button: <i>가</i>,
   command: () => document.execCommand('italic'),
 }, {
+  name: 'underline',
   button: <u>가</u>,
   command: () => document.execCommand('underline'),
 }, {
+  name: 'stroke',
   button: <s>가</s>,
   command: () => document.execCommand('strikeThrough'),
 }, {
+  name: 'large',
   button: <span>나<font size="1"> 크게</font></span>,
   command: () => document.execCommand('fontSize', false, 5),
 }, {
+  name: 'normal',
   button: <span>나<font size="1"> 중간</font></span>,
   command: () => document.execCommand('fontSize', false, 3),
 }, {
+  name: 'small',
   button: <span>나<font size="1"> 작게</font></span>,
   command: () => document.execCommand('fontSize', false, 1),
 }, {
+  name: 'black',
   button: <span style={{ color: '#000' }}>다</span>,
   command: () => document.execCommand('foreColor', false, '#000'),
 }, {
+  name: 'red',
   button: <span style={{ color: '#F00' }}>다</span>,
   command: () => document.execCommand('foreColor', false, '#F00'),
 }, {
+  name: 'blue',
   button: <span style={{ color: '#00F' }}>다</span>,
   command: () => document.execCommand('foreColor', false, '#00F'),
 }];
@@ -44,7 +54,7 @@ export default class Toolbar extends Component {
       <div className="editor-toolbar">
         {
           commands.map(p => (
-            <ToolbarItem onClick={ p.command }>
+            <ToolbarItem onClick={ p.command } key={ p.name }>
               { p.button }
             </ToolbarItem>
           ))

@@ -18,7 +18,7 @@ export default class PostItem extends Component {
     const { post } = this.props;
     return (
       <Link
-        href={ `posts/${post.id}` }
+        href={ `/posts/${post.id}` }
         query={{ tag: post.tag }}
         className="post-item"
       >
