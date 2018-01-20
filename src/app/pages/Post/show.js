@@ -2,24 +2,24 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withReduxSaga } from 'store';
 import App from 'components/Common/App';
-import { PostForm } from 'components/Post';
+import { PostView } from 'components/Post';
 
-class PostNew extends Component {
+class PostShow extends Component {
   static propTypes = {
-    tag: PropTypes.string.isRequired,
+    postId: PropTypes.string.isRequired,
   };
 
   static getInitialProps({ query }) {
-    return { tag: query.tag };
+    return { postId: query.id };
   }
 
   render() {
     return (
       <App>
-        <PostForm tag={ this.props.tag } />
+        <PostView postId={ this.props.postId } />
       </App>
     );
   }
 }
 
-export default withReduxSaga(PostNew);
+export default withReduxSaga(PostShow);

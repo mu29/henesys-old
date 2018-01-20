@@ -6,8 +6,10 @@ import {
   createPostActions,
   fetchPostListActionTypes,
   fetchPostListActions,
+  fetchPostActionTypes,
+  fetchPostActions,
 } from 'modules/Post';
-import { createPost, readPostList } from 'firebase/PostApi';
+import { createPost, readPostList, readPost } from 'firebase/PostApi';
 import { Router } from 'routes';
 
 function* addPost({ tag, title, content }) {
@@ -29,10 +31,21 @@ function* loadPostList({ tag, last }) {
     fetchPostListActions.failure({ error }));
 }
 
+function* loadPost({ id }) {
+  const { post, error } = yield call(readPost, id);
+  yield put(post ?
+    fetchPostActions.success({ post }) :
+    fetchPostActions.failure({ error }));
+}
+
 export function* watchCreatePost() {
   yield takeLatest(createPostActionTypes.REQUEST, addPost);
 }
 
 export function* watchFetchPostList() {
   yield takeLatest(fetchPostListActionTypes.REQUEST, loadPostList);
+}
+
+export function* watchFetchPost() {
+  yield takeLatest(fetchPostActionTypes.REQUEST, loadPost);
 }
