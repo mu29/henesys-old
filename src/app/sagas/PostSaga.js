@@ -50,9 +50,9 @@ function* loadPost({ id }) {
 
   yield all([
     put(hideLoading()),
-    post ?
+    put(post ?
       fetchPostActions.success({ post }) :
-      fetchPostActions.failure({ error }),
+      fetchPostActions.failure({ error })),
   ]);
 }
 
