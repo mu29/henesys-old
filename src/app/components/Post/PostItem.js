@@ -66,7 +66,7 @@ export default class PostItem extends Component {
           }
           .post-item small {
             font-size: 0.75rem;
-            color: #2D2D2D;
+            color: #616161;
             font-weight: 300;
           }
         `}</style>

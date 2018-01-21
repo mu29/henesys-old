@@ -49,6 +49,9 @@ class PostList extends Component {
             border-radius: 0.25rem;
             background-color: white;
           }
+          .post-list .loading-indicator {
+            padding: 2rem;
+          }
         `}</style>
       </div>
     );
