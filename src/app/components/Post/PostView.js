@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchPostActions } from 'modules/Post';
+import moment from 'moment';
+import 'moment/locale/ko';
+import { Loading } from 'components/Bootstrap';
+import { fetchPostActions, fetchPostActionTypes } from 'modules/Post';
 
 class PostView extends Component {
   static propTypes = {
+    loading: PropTypes.string.isRequired,
     post: PropTypes.shape({
       id: PropTypes.string,
       title: PropTypes.string,
@@ -22,12 +26,47 @@ class PostView extends Component {
   }
 
   render() {
+    const { loading, post } = this.props;
     return (
       <div className="post-view">
-        { this.props.post && this.props.post.content }
+        <div className="post-title">
+          <h3>{ post.title }</h3>
+          <small>{ moment(post.createdAt).format('LLL') }, 뮤</small>
+        </div>
+        <div className="post-content" dangerouslySetInnerHTML={{ __html: post.content }} />
+        <Loading
+          identifier={ fetchPostActionTypes.REQUEST }
+          loading={ loading }
+        />
         <style jsx>{`
           .post-view {
-            
+            display: flex;
+            flex-direction: column;
+            border-radius: 0.25rem;
+            background-color: white;
+          }
+          .post-view .post-title {
+            padding: 1.5rem 2rem;
+            background-color: #FAFAFA;
+            border-bottom: 0.0625rem solid #EEEEEE;
+            border-top-left-radius: 0.25rem;
+            border-top-right-radius: 0.25rem;
+          }
+          .post-title h3 {
+            margin: 0 0 0.25rem 0;
+            color: black;
+            font-size: 1.325rem;
+            font-weight: 400;
+          }
+          .post-title small {
+            font-size: 0.75rem;
+            color: #9E9E9E;
+          }
+          .post-view .post-content {
+            padding: 2rem;
+          }
+          .post-view .loading-indicator {
+            padding-bottom: 3rem;
           }
         `}</style>
       </div>
@@ -35,7 +74,8 @@ class PostView extends Component {
   }
 }
 
-const mapStateToProps = ({ Post }, { postId }) => ({
+const mapStateToProps = ({ Alert, Post }, { postId }) => ({
+  loading: Alert.loading,
   post: Post.posts.find(p => p.id === postId),
 });
 
