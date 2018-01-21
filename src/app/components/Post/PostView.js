@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import 'moment/locale/ko';
 import { Loading } from 'components/Bootstrap';
+import { CommentForm } from 'components/Comment';
 import { fetchPostActions, fetchPostActionTypes } from 'modules/Post';
 
 class PostView extends Component {
@@ -39,6 +40,9 @@ class PostView extends Component {
           loading={ loading }
           visible={ Object.keys(post).length === 0 }
         />
+        <div className="post-comment">
+          <CommentForm />
+        </div>
         <style jsx>{`
           .post-view {
             display: flex;
@@ -47,7 +51,7 @@ class PostView extends Component {
             background-color: white;
           }
           .post-view .post-title {
-            padding: 1.5rem 2rem;
+            padding: 1.5rem;
             background-color: #FAFAFA;
             border-bottom: 0.0625rem solid #EEEEEE;
             border-top-left-radius: 0.25rem;
@@ -57,17 +61,22 @@ class PostView extends Component {
             margin: 0 0 0.25rem 0;
             color: black;
             font-size: 1.325rem;
-            font-weight: 400;
+            font-weight: 500;
           }
           .post-title small {
             font-size: 0.75rem;
             color: #9E9E9E;
           }
           .post-view .post-content {
-            padding: 2rem;
+            padding: 1.5rem;
           }
           .post-view .loading-indicator {
             padding-bottom: 3rem;
+          }
+          .post-view .post-comment {
+            border-top: 0.0625rem solid #EEEEEE;
+            padding: 1.5rem;
+            background-color: #FAFAFA;
           }
         `}</style>
       </div>

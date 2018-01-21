@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { difference } from 'lodash';
 import { Loading } from 'components/Bootstrap';
-import { fetchPostListActions, fetchPostListActionTypes } from 'modules/Post';
+import { fetchPostListActions, fetchPostListActionTypes, createdAtDesc } from 'modules/Post';
 import { findMenu } from 'utils';
 import PostItem from './PostItem';
 
@@ -64,14 +64,14 @@ const mapStateToProps = ({ Alert, Post }, { tag }) => {
   if (menu.enable) {
     return {
       loading: Alert.loading,
-      posts: Post.posts.filter(p => p.tag === tag),
+      posts: Post.posts.filter(p => p.tag === tag).sort(createdAtDesc),
       tags: [menu.id],
     };
   }
 
   return {
     loading: Alert.loading,
-    posts: Post.posts.filter(p => menu.tags.find(t => t.id === p.tag)),
+    posts: Post.posts.filter(p => menu.tags.find(t => t.id === p.tag)).sort(createdAtDesc),
     tags: menu.tags.map(t => t.id),
   };
 };

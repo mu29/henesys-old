@@ -54,7 +54,6 @@ class PostForm extends Component {
         <Editor onChange={ this.onChangeContent } html={ content } />
         <LoadingButton
           className="post-button"
-          icon="plus"
           color="black"
           loadingColor="white"
           identifier={ createPostActionTypes.REQUEST }
