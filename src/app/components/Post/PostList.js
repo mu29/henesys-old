@@ -40,6 +40,7 @@ class PostList extends Component {
         <Loading
           identifier={ fetchPostListActionTypes.REQUEST }
           loading={ loading }
+          visible={ posts.length === 0 }
         />
         <style jsx>{`
           .post-list {

@@ -37,6 +37,7 @@ class PostView extends Component {
         <Loading
           identifier={ fetchPostActionTypes.REQUEST }
           loading={ loading }
+          visible={ Object.keys(post).length === 0 }
         />
         <style jsx>{`
           .post-view {
