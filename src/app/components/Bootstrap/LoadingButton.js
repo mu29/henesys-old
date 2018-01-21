@@ -38,7 +38,11 @@ export default class LoadingButton extends Component {
     } = this.props;
 
     return (
-      <Button className={ `${className} ${children ? 'loading-button' : ''}` } { ...props }>
+      <Button
+        className={ `${className} ${children ? 'loading-button' : ''}` }
+        disabled={ identifier === loading }
+        { ...props }
+      >
         { identifier !== loading ? children : this.showLoading() }
         <style jsx>{`
           .loading-button {
@@ -46,6 +50,9 @@ export default class LoadingButton extends Component {
             flex-direction: row;
             align-items: center;
             justify-content: center;
+          }
+          .loading-button[disabled] {
+            opacity: 1 !important;
           }
         `}</style>
       </Button>
