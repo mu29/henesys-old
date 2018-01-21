@@ -32,9 +32,13 @@ export async function readPostList(tag, last) {
   const db = loadDB();
   const tagRef = db.collection('tags').doc(tag);
 
-  let query = db.collection('posts')
-    .where('tag', '==', tagRef)
-    .orderBy('createdAt', 'desc');
+  let query = db.collection('posts');
+
+  if (tag) {
+    query = query.where('tag', '==', tagRef);
+  }
+
+  query = query.orderBy('createdAt', 'desc');
 
   if (last) {
     const lastPostRef = await db.collection('posts').doc(last).get();
