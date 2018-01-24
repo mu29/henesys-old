@@ -51,7 +51,13 @@ class CommentForm extends Component {
           .comment-form {
             display: flex;
             border: 0.0625rem solid #EEEEEE;
-            border-radius: 0.25rem;
+            transition: ease-in 0.1s;
+          }
+          .comment-form:active,
+          .comment-form:focus,
+          .comment-form:hover {
+            border: 0.0625rem solid #E0E0E0;
+            transition: ease-in 0.1s;
           }
           .comment-form .comment-input {
             flex: 1;
@@ -60,13 +66,13 @@ class CommentForm extends Component {
             border: none;
             height: 5rem;
             padding: 0.75rem;
-            border-top-left-radius: 0.25rem;
-            border-bottom-left-radius: 0.25rem;
           }
           .comment-form .comment-button {
             width: 5rem;
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
+            border-radius: 0;
+          }
+          .comment-form .comment-button .loading-indicator {
+            padding: 0;
           }
         `}</style>
       </div>
@@ -79,7 +85,7 @@ const mapStateToProps = ({ Alert }) => ({
 });
 
 const mapDispatchToProps = (dispatch, { postId }) => ({
-  createPost: content => dispatch(createCommentActions.request({ postId, content })),
+  createComment: content => dispatch(createCommentActions.request({ postId, content })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommentForm);

@@ -41,7 +41,7 @@ class PostView extends Component {
           visible={ Object.keys(post).length === 0 }
         />
         <div className="post-comment">
-          <CommentForm />
+          <CommentForm postId={ post.id } />
         </div>
         <style jsx>{`
           .post-view {
