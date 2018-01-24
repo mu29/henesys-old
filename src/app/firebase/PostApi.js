@@ -30,11 +30,11 @@ export async function createPost(tag, title, content) {
 
 export async function readPostList(tag, last) {
   const db = loadDB();
-  const tagRef = db.collection('tags').doc(tag);
 
   let query = db.collection('posts');
 
   if (tag) {
+    const tagRef = db.collection('tags').doc(tag);
     query = query.where('tag', '==', tagRef);
   }
 
