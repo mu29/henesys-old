@@ -5,23 +5,33 @@ import { withReduxSaga } from 'store';
 import App from 'components/Common/App';
 import { IconButton } from 'components/Bootstrap';
 import { PostView, TagList } from 'components/Post';
+import { fetchPostActions } from 'modules/Post';
+import { readPost } from 'firebase/PostApi';
 
 class PostShow extends Component {
   static propTypes = {
     tag: PropTypes.string.isRequired,
+    post: PropTypes.shape({
+      id: PropTypes.string,
+      title: PropTypes.string,
+      content: PropTypes.string,
+    }).isRequired,
     postId: PropTypes.string.isRequired,
   };
 
-  static getInitialProps({ query }) {
-    return { postId: query.id, tag: query.tag };
+  static async getInitialProps({ store, query }) {
+    const { post } = await readPost(query.id);
+    store.dispatch(fetchPostActions.success({ post }));
+
+    return { post, postId: query.id, tag: query.tag };
   }
 
   render() {
-    const { tag } = this.props;
+    const { post, postId, tag } = this.props;
 
     return (
       <App>
-        <PostView postId={ this.props.postId } />
+        <PostView post={ post } postId={ postId } />
         <TagList tag={ tag } />
         <IconButton
           className="post-button"
