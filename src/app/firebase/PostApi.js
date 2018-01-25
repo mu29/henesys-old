@@ -6,13 +6,11 @@ export async function createPost(tag, title, content) {
   const firebase = loadFirebase();
 
   try {
-    const tagRef = db.collection('tags').doc(tag);
-    const userRef = db.collection('users').doc(auth.currentUser.uid);
     const postRef = await db.collection('posts').add({
       title,
       content,
-      tag: tagRef,
-      user: userRef,
+      tag,
+      user: auth.currentUser.uid,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     });
     const post = await postRef.get();
@@ -35,8 +33,7 @@ export async function readPostList(tag, last) {
     let query = db.collection('posts');
 
     if (tag) {
-      const tagRef = db.collection('tags').doc(tag);
-      query = query.where('tag', '==', tagRef);
+      query = query.where('tag', '==', tag);
     }
 
     query = query.orderBy('createdAt', 'desc');

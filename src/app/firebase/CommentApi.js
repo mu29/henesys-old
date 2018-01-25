@@ -6,12 +6,12 @@ export async function createComment(postId, content) {
   const firebase = loadFirebase();
 
   try {
-    const postRef = db.collection('posts').doc(postId);
-    const userRef = db.collection('users').doc(auth.currentUser.uid);
+    // const postRef = db.collection('posts').doc(postId);
+    // const userRef = db.collection('users').doc(auth.currentUser.uid);
     const commentRef = await db.collection('comments').add({
       content,
-      post: postRef,
-      user: userRef,
+      post: postId,
+      user: auth.currentUser.uid,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     });
     const comment = await commentRef.get();
@@ -31,9 +31,8 @@ export async function readCommentList(postId) {
   const db = loadDB();
 
   try {
-    const postRef = db.collection('posts').doc(postId);
     const comments = await db.collection('comments')
-      .where('post', '==', postRef)
+      .where('post', '==', postId)
       .orderBy('createdAt', 'asc')
       .get();
     return { comments: comments.docs.map(d => ({ id: d.id, ...d.data(), post: postId })) };
