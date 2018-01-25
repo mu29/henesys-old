@@ -6,6 +6,7 @@ import 'moment/locale/ko';
 import { Loading } from 'components/Bootstrap';
 import { CommentForm } from 'components/Comment';
 import { fetchPostActions, fetchPostActionTypes } from 'modules/Post';
+import { fetchCommentListActions, fetchCommentListActionTypes } from 'modules/Comment';
 
 class PostView extends Component {
   static propTypes = {
@@ -15,7 +16,9 @@ class PostView extends Component {
       title: PropTypes.string,
       content: PropTypes.string,
     }),
+    comments: PropTypes.arrayOf(PropTypes.object).isRequired,
     fetchPost: PropTypes.func.isRequired,
+    fetchCommentList: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -24,6 +27,7 @@ class PostView extends Component {
 
   componentWillMount() {
     this.props.fetchPost();
+    this.props.fetchCommentList();
   }
 
   render() {
@@ -41,6 +45,11 @@ class PostView extends Component {
           visible={ Object.keys(post).length === 0 }
         />
         <div className="post-comment">
+          <Loading
+            identifier={ fetchCommentListActionTypes.REQUEST }
+            loading={ loading }
+            visible={ Object.keys(post).length === 0 }
+          />
           <CommentForm postId={ post.id } />
         </div>
         <style jsx>{`
@@ -52,8 +61,6 @@ class PostView extends Component {
           }
           .post-view .post-title {
             padding: 1.5rem;
-            background-color: #FAFAFA;
-            border-bottom: 0.0625rem solid #EEEEEE;
             border-top-left-radius: 0.25rem;
             border-top-right-radius: 0.25rem;
           }
@@ -84,13 +91,15 @@ class PostView extends Component {
   }
 }
 
-const mapStateToProps = ({ Alert, Post }, { postId }) => ({
+const mapStateToProps = ({ Alert, Post, Comment }, { post, postId }) => ({
   loading: Alert.loading,
-  post: Post.posts.find(p => p.id === postId),
+  post: post || Post.posts.find(p => p.id === postId),
+  comments: Comment.comments.filter(c => c.post === postId),
 });
 
 const mapDispatchToProps = (dispatch, { postId }) => ({
   fetchPost: () => dispatch(fetchPostActions.request({ id: postId })),
+  fetchCommentList: () => dispatch(fetchCommentListActions.request({ postId })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostView);
