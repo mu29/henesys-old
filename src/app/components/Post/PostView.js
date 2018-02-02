@@ -7,6 +7,7 @@ import { Loading } from 'components/Bootstrap';
 import { CommentForm } from 'components/Comment';
 import { fetchPostActions, fetchPostActionTypes } from 'modules/Post';
 import { fetchCommentListActions, fetchCommentListActionTypes } from 'modules/Comment';
+import CommentItem from './CommentItem';
 
 class PostView extends Component {
   static propTypes = {
@@ -31,7 +32,7 @@ class PostView extends Component {
   }
 
   render() {
-    const { loading, post } = this.props;
+    const { loading, post, comments } = this.props;
     return (
       <div className="post-view">
         <div className="post-title">
@@ -50,6 +51,7 @@ class PostView extends Component {
             loading={ loading }
             visible={ Object.keys(post).length === 0 }
           />
+          { comments.map(c => <CommentItem key={ c.id } comment={ c } />) }
           <CommentForm postId={ post.id } />
         </div>
         <style jsx>{`
