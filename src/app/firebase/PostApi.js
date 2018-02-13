@@ -10,6 +10,7 @@ export async function createPost(tag, title, content) {
       title,
       content,
       tag,
+      commentCount: 0,
       user: auth.currentUser.uid,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     });

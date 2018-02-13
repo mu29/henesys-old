@@ -29,7 +29,7 @@ export default class PostItem extends Component {
           </div>
         </div>
         <div className="comment">
-          <h4>12</h4>
+          <h4>{ post.commentCount }</h4>
           <small>댓글</small>
         </div>
         <style jsx>{`

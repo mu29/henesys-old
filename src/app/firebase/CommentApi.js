@@ -6,8 +6,6 @@ export async function createComment(postId, content) {
   const firebase = loadFirebase();
 
   try {
-    // const postRef = db.collection('posts').doc(postId);
-    // const userRef = db.collection('users').doc(auth.currentUser.uid);
     const commentRef = await db.collection('comments').add({
       content,
       post: postId,
@@ -15,6 +13,11 @@ export async function createComment(postId, content) {
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     });
     const comment = await commentRef.get();
+
+    const postRef = db.collection('posts').doc(postId);
+    const post = await postRef.get();
+    await postRef.update({ commentCount: (post.data().commentCount || 0) + 1 });
+
     return {
       comment: {
         ...comment.data(),

@@ -6,7 +6,7 @@ import 'moment/locale/ko';
 import { Loading } from 'components/Bootstrap';
 import { CommentForm } from 'components/Comment';
 import { fetchPostActions, fetchPostActionTypes } from 'modules/Post';
-import { fetchCommentListActions, fetchCommentListActionTypes } from 'modules/Comment';
+import { fetchCommentListActions, fetchCommentListActionTypes, createdAtAsc } from 'modules/Comment';
 import CommentItem from './CommentItem';
 
 class PostView extends Component {
@@ -96,7 +96,7 @@ class PostView extends Component {
 const mapStateToProps = ({ Alert, Post, Comment }, { post, postId }) => ({
   loading: Alert.loading,
   post: post || Post.posts.find(p => p.id === postId),
-  comments: Comment.comments.filter(c => c.post === postId),
+  comments: Comment.comments.filter(c => c.post === postId).sort(createdAtAsc),
 });
 
 const mapDispatchToProps = (dispatch, { postId }) => ({
