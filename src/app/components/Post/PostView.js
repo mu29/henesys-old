@@ -37,7 +37,7 @@ class PostView extends Component {
       <div className="post-view">
         <div className="post-title">
           <h3>{ post.title }</h3>
-          <small>{ moment(post.createdAt).format('LLL') }, 뮤</small>
+          <small>{ moment(post.createdAt).format('LLL') }, { post.user.name }</small>
         </div>
         <div className="post-content" dangerouslySetInnerHTML={{ __html: post.content }} />
         <Loading

@@ -11,7 +11,10 @@ export async function createPost(tag, title, content) {
       content,
       tag,
       commentCount: 0,
-      user: auth.currentUser.uid,
+      user: {
+        id: auth.currentUser.uid,
+        name: auth.currentUser.displayName,
+      },
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     });
     const post = await postRef.get();
@@ -45,7 +48,7 @@ export async function readPostList(tag, last) {
     }
 
     const posts = await query.limit(20).get();
-    return { posts: posts.docs.map(d => ({ id: d.id, ...d.data(), tag })) };
+    return { posts: posts.docs.map(d => ({ id: d.id, ...d.data() })) };
   } catch (error) {
     return { error };
   }

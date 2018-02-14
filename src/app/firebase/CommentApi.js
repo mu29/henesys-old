@@ -9,7 +9,10 @@ export async function createComment(postId, content) {
     const commentRef = await db.collection('comments').add({
       content,
       post: postId,
-      user: auth.currentUser.uid,
+      user: {
+        id: auth.currentUser.uid,
+        name: auth.currentUser.displayName,
+      },
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     });
     const comment = await commentRef.get();

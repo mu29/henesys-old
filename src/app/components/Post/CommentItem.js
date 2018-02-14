@@ -17,7 +17,7 @@ export default class CommentItem extends Component {
     return (
       <div className="comment-item">
         <div className="info">
-          뮤
+          { comment.user.name }
           <small>{ moment(comment.createdAt).fromNow() }</small>
         </div>
         <p className="content">

@@ -25,11 +25,11 @@ export default class PostItem extends Component {
         <div className="content">
           <h4>{ post.title }</h4>
           <div>
-            <small>{ moment(post.createdAt).fromNow() }, 뮤</small>
+            <small>{ moment(post.createdAt).fromNow() }, { post.user.name }</small>
           </div>
         </div>
         <div className="comment">
-          <h4>{ post.commentCount }</h4>
+          <h4>{ post.commentCount || 0 }</h4>
           <small>댓글</small>
         </div>
         <style jsx>{`
